@@ -1,0 +1,29 @@
+server:
+  port: 8080
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/shop?serverTimezone=UTC
+    username: root
+    password: 1234
+  mail:
+    host: smtp.naver.com
+    port: 465
+    username: bubbleland13@naver.com
+    password: anehrkalswhd!12
+    properties:
+      mail.smtp.auth: true
+      mail.smtp.ssl.enable: true
+      mail.smtp.ssl.trust: smtp.naver.com
+      mail.smtp.starttls.enable: true
+  jpa:
+    hibernate:
+      ddl-auto: update #테이블 생성
+  properties:
+    .hibernate:
+      show_sql: true
+      format_sql : true
+      database-platform=org:
+        hibernate:
+          dialect:
+            MySQL8Dialect:
