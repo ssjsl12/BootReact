@@ -1,3 +1,4 @@
+/*
 import logo from './logo.svg';
 import './App.css';
 
@@ -20,6 +21,36 @@ function App() {
       </header>
     </div>
   );
+}
+
+export default App;
+*/
+
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
+
+function App() {
+    const [data, setData] = useState('')
+
+    useEffect(() => {
+        axios.get('/api/data')
+            .then(res => setData(res.data))
+            .catch(err => {
+                if (err.response) {
+                    console.error('Error Response:', err.response.data);
+                } else if (err.request) {
+                    console.error('Error Request:', err.request);
+                } else {
+                    console.error('Error Message:', err.message);
+                }
+            });
+    }, []);
+
+    return (
+        <div>
+            받아온 값 : {data}
+        </div>
+    );
 }
 
 export default App;
