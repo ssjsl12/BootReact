@@ -1,4 +1,4 @@
-package com.example.Controller;
+package com.example.bootreact.Controller;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;

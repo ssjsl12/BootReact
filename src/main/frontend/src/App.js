@@ -32,19 +32,14 @@ import axios from 'axios';
 function App() {
     const [data, setData] = useState('')
 
-    useEffect(() => {
-        axios.get('/api/data')
-            .then(res => setData(res.data))
-            .catch(err => {
-                if (err.response) {
-                    console.error('Error Response:', err.response.data);
-                } else if (err.request) {
-                    console.error('Error Request:', err.request);
-                } else {
-                    console.error('Error Message:', err.message);
-                }
-            });
-    }, []);
+    useEffect(() =>
+    {
+        axios.get('/api/data', { withCredentials: true })
+            .then(res => {
+                setData(res.data);  // 상태에 응답 데이터 저장
+            })
+            .catch(err => console.error(err));
+    },[]);
 
     return (
         <div>
