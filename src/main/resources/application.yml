@@ -3,7 +3,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/shop?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/Gallery?serverTimezone=UTC
     username: root
     password: 1234
   mail:

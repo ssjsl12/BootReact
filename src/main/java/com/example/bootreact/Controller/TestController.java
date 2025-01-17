@@ -1,20 +1,19 @@
 package com.example.bootreact.Controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class RestMainController {
+@Log4j2
+public class TestController {
 
-    @GetMapping("/api/data")
-    public String test()
-    {
+    @GetMapping("/test")
+    public String home() {
+
+        log.info("test");
 
         return "Hello World";
     }
-
-
-
 
 }

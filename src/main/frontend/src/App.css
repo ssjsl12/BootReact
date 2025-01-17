@@ -36,3 +36,67 @@
     transform: rotate(360deg);
   }
 }
+
+header
+{
+  background-color: #333;
+  color : #fff;
+  padding : 20px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px;
+  background-color: #f1f1f1;
+  bottom: 0;
+  width: 100%;  /* 화면 전체 너비 */
+}
+
+body {
+  font-family: Arial, sans-serif;
+  height: 100%;  /* 전체 높이를 100%로 설정 */
+  display: flex;
+  flex-direction: column;
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/*NavBar*/
+
+.custom-navbar {
+  background-color: #343a40; /* 어두운 배경 */
+  padding: 10px 20px;  /* 상하좌우 여백 */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+}
+
+.navbar-brand {
+  font-size: 1.8rem; /* 브랜드 텍스트 크기 */
+  font-weight: bold;  /* 브랜드 텍스트 굵게 */
+  color: #fff;  /* 텍스트 색상 */
+  text-transform: uppercase;  /* 대문자로 변환 */
+  letter-spacing: 2px;  /* 문자 간격 조정 */
+}
+
+.navbar-brand:hover {
+  color: #f8f9fa;  /* 호버 시 밝은 색상으로 변경 */
+}
+
+.nav-link {
+  font-size: 1.1rem;  /* 링크 텍스트 크기 */
+  color: #ddd;  /* 기본 링크 색상 */
+  margin-right: 20px;  /* 링크 간격 */
+  text-transform: capitalize;  /* 첫 글자 대문자 */
+  transition: all 0.3s ease;  /* 부드러운 전환 효과 */
+}
+
+.nav-link:hover {
+  color: #f1c40f;  /* 링크 호버 시 색상 변경 */
+  text-decoration: underline;  /* 호버 시 밑줄 추가 */
+}
+
+
