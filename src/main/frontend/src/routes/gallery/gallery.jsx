@@ -1,48 +1,82 @@
 import axios from "axios";
-import React, { useEffect, useState } from 'react';
-import './css/gallery.css'; // CSS 파일 import
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import './css/gallery.css';
 
-const Gallery = (props) => {
+const Gallery = () => {
+    const { category } = useParams(); // URL 파라미터에서 category 가져오기
+    const navigate = useNavigate(); // 디테일 페이지로 이동할 때 사용
+
     const [categories, setCategories] = useState([]);
     const [galleries, setGalleries] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null); // 에러 상태 추가
 
+    // 데이터 가져오기
     useEffect(() => {
-        // galleryType이 'gallery'인 카테고리 가져오기
-        axios.get('/categories/gallery', { withCredentials: true })
-            .then(res => {
-                setCategories(res.data); // 카테고리 목록 저장
-            })
-            .catch(err => console.error(err));
+        const fetchData = async () => {
+            setLoading(true);
+            setError(null); // 초기화
 
-        // 모든 갤러리 가져오기 (모든 카테고리에 속하는 갤러리들)
-        axios.get('/galleries', { withCredentials: true })
-            .then(res => {
-                setGalleries(res.data); // 갤러리 목록 저장
-            })
-            .catch(err => console.error(err));
-    }, []);
+            try {
+                // 카테고리 데이터와 갤러리 데이터를 동시에 가져오기
+                const [categoriesRes, galleriesRes] = await Promise.all([
+                    axios.get(`/category/${category}`, { withCredentials: true }),
+                    axios.get(`/galleries/${category}`, { withCredentials: true }),
+                ]);
+
+                setCategories(categoriesRes.data);
+                setGalleries(galleriesRes.data);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                setError("데이터를 불러오는 데 실패했습니다. 다시 시도해주세요.");
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        if (category) {
+            fetchData();
+        }
+    }, [category]); // category 값 변경 시 데이터 다시 로드
+
+    // 로딩 상태 처리
+    if (loading) {
+        return <div className="loading">Loading...</div>;
+    }
+
+    // 에러 상태 처리
+    if (error) {
+        return <div className="error-message">{error}</div>;
+    }
 
     return (
         <div className="container">
-            <h1 style={{margin: '10px'}}>Gallery Categories</h1>
-            <ul>
-                {categories.map((category) => (
-                    <li key={category.no}>
-                        <h3>{category.cateName}</h3>
+           {/* <h1 style={{ margin: '10px' }}>Gallery: {category}</h1>*/}
+            {/* 카테고리별 갤러리 리스트 */}
+            {categories.map((cat) => {
+                // 현재 카테고리와 연결된 갤러리 필터링
+                const filteredGalleries = galleries.filter(
+                    (gallery) => gallery.category.no === cat.no
+                );
 
-                        {/* 해당 카테고리에 속하는 갤러리만 필터링해서 표시 */}
+                return (
+                    <div key={cat.no} className="category-section">
+                        <h2>{cat.cateName}</h2>
                         <div className="gallery-list">
-                            {galleries
-                                .filter((gallery) => gallery.category.no === category.no) // 카테고리 번호가 일치하는 갤러리 필터링
-                                .map((gallery) => (
-                                    <div key={gallery.no} className="gallery-item">
-                                        {gallery.galleryName}
-                                    </div>
-                                ))}
+                            {filteredGalleries.map((gallery) => (
+                                <div
+                                    key={gallery.no}
+                                    className="gallery-item"
+                                    onClick={() => navigate(`/gallery/${category}/${gallery.url}`)} // 클릭 시 디테일 페이지로 이동
+                                >
+                                    <h3>{gallery.galleryKorName}</h3>
+                                </div>
+                            ))}
                         </div>
-                    </li>
-                ))}
-            </ul>
+                    </div>
+                );
+            })}
         </div>
     );
 };

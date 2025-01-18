@@ -25,22 +25,24 @@ public class GalleryController {
     @Autowired
     private GalleryService galleryService;
 
-    @GetMapping("/categories/{type}")
+    @GetMapping("/category/{type}")
     public List<GalleryCategory> getGalleryCategories(@PathVariable("type") String type) {
 
 
-        List<GalleryCategory> list = galleryService.getGalleryCategoriesByType(GalleryType.gallery);
+        GalleryType galleryType = GalleryType.valueOf(type);  // 대소문자 구분 없이 처리
 
-        list.forEach(item -> log.info(item.toString()));
+        List<GalleryCategory> list = galleryService.getGalleryCategoriesByType(galleryType);
 
         return list;
     }
 
-    @GetMapping("/galleries")
-    public List<Gallery> getGalleries() {
+    @GetMapping("/galleries/{type}")
+    public List<Gallery> getGalleries(@PathVariable("type")String type) {
 
-       List<Gallery> list = galleryService.getGalleriesByCategoryNo();
-        list.forEach(item -> log.info(item.toString()));
+        GalleryType galleryType = GalleryType.valueOf(type);
+
+        List<Gallery> list = galleryService.getGalleriesByCategoryNo(galleryType);
+
         return list;
     }
 

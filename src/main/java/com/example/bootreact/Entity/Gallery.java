@@ -23,7 +23,8 @@ public class Gallery {
     @JoinColumn(name = "cate_type")
     private GalleryCategory category;
 
-    private String galleryName; // 갤러리 이름 (예: 리그 오브 레전드, 오버워치)
+    private String galleryKorName; // 갤러리 이름 (예: 리그오브레전드)
+    private String url; // 갤러리 주소
 
     private String description; // 갤러리 설명
 }

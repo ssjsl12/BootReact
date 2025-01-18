@@ -23,14 +23,16 @@ public class GalleryService {
     @Autowired
     private GalleryRepository galleryRepository;
 
+
     public List<GalleryCategory> getGalleryCategoriesByType(GalleryType galleryType) {
         // galleryType이 'gallery'인 카테고리 목록을 가져옵니다.
         return galleryCategoryRepository.findByGalleryType(galleryType);
     }
 
-    public List<Gallery> getGalleriesByCategoryNo() {
+    public List<Gallery> getGalleriesByCategoryNo(GalleryType galleryType) {
         // 특정 카테고리 번호에 속한 갤러리 목록을 가져옵니다.
-        return galleryRepository.findAll();
+
+        return galleryRepository.findByCategoryType(galleryType);
     }
 
 
