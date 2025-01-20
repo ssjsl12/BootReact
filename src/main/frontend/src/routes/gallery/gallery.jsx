@@ -57,6 +57,8 @@ const Gallery = () => {
     }, [category]); // 카테고리 값이 변경될 때마다 데이터를 새로 요청
 
 
+/*    localStorage.clear();*/
+
     // 로딩 상태 처리
     if (loading) {
         return <div className="loading">Loading...</div>;
@@ -72,7 +74,7 @@ const Gallery = () => {
            {/* <h1 style={{ margin: '10px' }}>Gallery: {category}</h1>*/}
             {/* 카테고리별 갤러리 리스트 */}
             {categories.map((cat) => {
-                // 현재 카테고리와 연결된 갤러리 필터링
+                // 현재 카테고ain/.리와 연결된 갤러리 필터링
                 const filteredGalleries = galleries.filter(
                     (gallery) => gallery.category.no === cat.no
                 );

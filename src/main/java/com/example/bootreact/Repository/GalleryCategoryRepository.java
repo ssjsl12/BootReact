@@ -14,4 +14,6 @@ public interface GalleryCategoryRepository extends JpaRepository<GalleryCategory
 
     List<GalleryCategory> findByGalleryType(GalleryType galleryType);
 
+
+
 }

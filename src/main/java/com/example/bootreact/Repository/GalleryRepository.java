@@ -19,4 +19,6 @@ public interface GalleryRepository extends JpaRepository<Gallery, Long> {
     WHERE c.galleryType = :galleryType
 """)
     List<Gallery> findByCategoryType(@Param("galleryType") GalleryType galleryType);
+
+    Gallery findByUrl(String url);
 }

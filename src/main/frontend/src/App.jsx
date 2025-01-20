@@ -4,6 +4,7 @@ import { Container, Nav, Navbar } from "react-bootstrap";
 import Test from "./routes/Test";
 import Gallery from "./routes/gallery/gallery";
 import GalleryDetail from './routes/gallery/galleryDetail';  // 갤러리 상세 페이지 컴포넌트
+import PostWrite from './routes/gallery/postWrite';
 
 function App() {
     const navigate = useNavigate();  // useNavigate 훅 사용
@@ -28,7 +29,8 @@ function App() {
             <Navbar className="custom-navbar" expand="lg" data-bs-theme="dark">
                 <Container>
                     <Nav className="me-auto">
-                        {navLinks.map((link, index) => (
+                        {
+                            navLinks.map((link, index) => (
                             <Nav.Link key={index} onClick={() => navigate(link.path)} className="nav-link">
                                 {link.label}
                             </Nav.Link>
@@ -40,8 +42,9 @@ function App() {
             {/* 라우팅 설정 */}
             <Routes>
                 <Route path="/:category" element={<Gallery />} />  {/* 카테고리별 갤러리 리스트 */}
-                <Route path="/:category/:galleryId" element={<GalleryDetail />} />  {/* 갤러리 상세 페이지 */}
-                <Route path="/test" element={<Test />} />
+                <Route path="/:category/:galleryId" element={<GalleryDetail />} />  {/* 갤러리 상세 페이지 게시글 리스트 */}
+                <Route path="/:category/:galleryId/write" element={<PostWrite/>} /> {/* 게시글 작성 */}
+                {/*게시글 상세페이지추가 */}
             </Routes>
 
             {/* 푸터 */}

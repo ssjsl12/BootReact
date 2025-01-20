@@ -1,8 +1,10 @@
 package com.example.bootreact.Controller;
 
 import com.example.bootreact.Constant.GalleryType;
+import com.example.bootreact.Entity.BoardPost;
 import com.example.bootreact.Entity.Gallery;
 import com.example.bootreact.Entity.GalleryCategory;
+import com.example.bootreact.Service.BoardPostService;
 import com.example.bootreact.Service.GalleryService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,14 +27,16 @@ public class GalleryController {
     @Autowired
     private GalleryService galleryService;
 
+    @Autowired
+    private BoardPostService boardPostService;
+
+
     @GetMapping("/category/{type}")
     public List<GalleryCategory> getGalleryCategories(@PathVariable("type") String type) {
-
 
         GalleryType galleryType = GalleryType.valueOf(type);  // 대소문자 구분 없이 처리
 
         List<GalleryCategory> list = galleryService.getGalleryCategoriesByType(galleryType);
-
         return list;
     }
 
@@ -46,10 +50,16 @@ public class GalleryController {
         return list;
     }
 
-    @GetMapping("/gallery/{galleryId}")
-    public Gallery getGalleryById(@PathVariable int galleryId) {
+    @GetMapping("/{category}/{url}")
+    public List<BoardPost> getGalleryById(@PathVariable("category") String category, @PathVariable("url")String url) {
 
-        return null;
+        Gallery gallery =  galleryService.getGalleryByUrl(url);
+
+        int galleryNo = gallery.getNo();
+
+        List<BoardPost> list  = boardPostService.findGalleryNo(galleryNo);
+
+        return list;
     }
 
 }

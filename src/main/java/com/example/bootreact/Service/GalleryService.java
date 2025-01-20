@@ -24,6 +24,7 @@ public class GalleryService {
     private GalleryRepository galleryRepository;
 
 
+
     public List<GalleryCategory> getGalleryCategoriesByType(GalleryType galleryType) {
         // galleryType이 'gallery'인 카테고리 목록을 가져옵니다.
         return galleryCategoryRepository.findByGalleryType(galleryType);
@@ -35,6 +36,10 @@ public class GalleryService {
         return galleryRepository.findByCategoryType(galleryType);
     }
 
+    public Gallery getGalleryByUrl(String url) {
+
+        return galleryRepository.findByUrl(url);
+    }
 
 
 
