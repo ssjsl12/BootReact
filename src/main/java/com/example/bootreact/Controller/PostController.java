@@ -1,7 +1,9 @@
 package com.example.bootreact.Controller;
 
+import com.example.bootreact.DTO.CommentDTO;
 import com.example.bootreact.DTO.PostDTO;
 import com.example.bootreact.Entity.BoardPost;
+import com.example.bootreact.Entity.Comment;
 import com.example.bootreact.Entity.Gallery;
 import com.example.bootreact.Service.BoardPostService;
 import com.example.bootreact.Service.GalleryService;
@@ -9,6 +11,9 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @Log4j2
@@ -50,15 +55,19 @@ public class PostController {
         public PostDTO viewPost(@PathVariable("category") String category
                 , @PathVariable("url")String url, @PathVariable("no")int no)
         {
-            BoardPost boardPost = boardPostService.findById(no , true);
-
+            BoardPost post = boardPostService.findById(no , true);
 
             PostDTO postDTO = new PostDTO();
-            postDTO.setting(boardPost.getId(),
-                    boardPost.getTitle(),
-                    boardPost.getContent(),
-                    boardPost.getAuthor(),
-                    boardPost.getUpdatedAt());
+            postDTO.setting(post.getId(),
+                    post.getTitle(),
+                    post.getContent(),
+                    post.getAuthor(),
+                    post.getUpdatedAt(),
+                    post.getViews());
+
+            postDTO.setComments(post.getComments().stream()
+                    .map(comment -> new CommentDTO(comment.getId(), comment.getContent(), comment.getAuthor(), comment.getCreatedAt()))
+                    .toList());
 
             return postDTO;
         }
@@ -79,7 +88,8 @@ public class PostController {
                 boardPost.getTitle(),
                 boardPost.getContent(),
                 boardPost.getAuthor(),
-                boardPost.getUpdatedAt());
+                boardPost.getUpdatedAt(),
+                boardPost.getViews());
 
 
         return postDTO;

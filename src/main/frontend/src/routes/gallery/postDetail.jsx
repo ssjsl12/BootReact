@@ -24,21 +24,47 @@ const PostDetail = () =>
 
     if (!post) return <div>Loading...</div>; // 로딩 중일 때 표시
 
+    const formatDate = (dateString) => {
+        const date = new Date(dateString);
+        return date.toLocaleString(); // 로컬 시간 형식으로 변환
+    };
+    console.log(post);
+
 
     return (
         <div className="post-detail">
+            <button className="btn" onClick={() => navigate(`/${category}/${galleryId}/modify/${no}`)}>수정</button>
             <p className="post_title">{post.title}</p>
             <div className="post-meta">
                 <p className="author">{post.author}</p>
-                <p className="date">{post.updateTime}</p>
+                <p className="date">{formatDate(post.updateTime)}</p>
             </div>
             <div className="post-content">
                 {post.content}
             </div>
-            <div className="btn-group">
-                <button className="btn" onClick={() => navigate(`/${category}/${galleryId}/modify/${no}`)}>수정</button>
-            </div>
+
+            <h2>댓글</h2>
+            {post.comments && post.comments.length > 0 ? (
+                post.comments.map(comment => (
+                    <div key={comment.id} className="comment-item">
+                        <p>{comment.content}</p>
+                        <p>
+                            <strong>Author:</strong> {comment.author}
+                        </p>
+                        <p>
+                            <strong>Created At:</strong>{' '}
+                            {new Date(comment.createdAt).toLocaleString()}
+                        </p>
+                    </div>
+                ))
+            ) : (
+                <p>No comments available</p>
+            )}
+
         </div>
+
+
+
     );
 
 };

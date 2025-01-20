@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -16,14 +17,15 @@ public class PostDTO {
     String content;
     String author;
     LocalDateTime updateTime;
-    private List<CommentDTO> comments;
-
-    public void setting(int id, String title, String content, String author , LocalDateTime updateTime ) {
+    int views;
+    private List<CommentDTO> comments = new ArrayList<>(); // 댓글 리스트 포함
+    public void setting(int id, String title, String content, String author , LocalDateTime updateTime , int views ) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.author = author;
         this.updateTime = updateTime;
+        this.views = views;
     }
 
 }

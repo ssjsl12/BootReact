@@ -1,6 +1,8 @@
 package com.example.bootreact.Controller;
 
 import com.example.bootreact.Constant.GalleryType;
+import com.example.bootreact.DTO.CommentDTO;
+import com.example.bootreact.DTO.PostDTO;
 import com.example.bootreact.Entity.BoardPost;
 import com.example.bootreact.Entity.Gallery;
 import com.example.bootreact.Entity.GalleryCategory;
@@ -16,8 +18,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 
 @RestController
@@ -51,15 +55,39 @@ public class GalleryController {
     }
 
     @GetMapping("/{category}/{url}")
-    public List<BoardPost> getGalleryById(@PathVariable("category") String category, @PathVariable("url")String url) {
+    public List<PostDTO> getGalleryById(@PathVariable("category") String category, @PathVariable("url") String url) {
+        // galleryService를 통해 Gallery 객체를 가져옵니다.
+        Gallery gallery = galleryService.getGalleryByUrl(url);
 
-        Gallery gallery =  galleryService.getGalleryByUrl(url);
-
+        // gallery에서 No 값을 가져옵니다.
         int galleryNo = gallery.getNo();
 
-        List<BoardPost> list  = boardPostService.findGalleryNo(galleryNo);
+        // 해당 galleryNo에 해당하는 게시글 목록을 찾습니다.
+        List<BoardPost> list = boardPostService.findGalleryNo(galleryNo);
 
-        return list;
+        // PostDTO 리스트로 변환하여 반환할 리스트
+        List<PostDTO> postDTOList = new ArrayList<>();
+
+        // BoardPost 리스트를 PostDTO 리스트로 변환
+        for (BoardPost post : list) {
+            PostDTO postDTO = new PostDTO();
+
+            // BoardPost에서 PostDTO로 필요한 정보를 설정
+            postDTO.setting(post.getId(), post.getTitle(), post.getContent(),
+                    post.getAuthor(), post.getUpdatedAt() , post.getViews());
+
+            // 댓글 목록을 DTO로 변환하여 추가
+            postDTO.setComments(post.getComments().stream()
+                    .map(comment -> new CommentDTO(comment.getId(), comment.getContent(),
+                            comment.getAuthor(), comment.getCreatedAt()))
+                    .collect(Collectors.toList()));
+
+            // 변환된 PostDTO를 리스트에 추가
+            postDTOList.add(postDTO);
+        }
+
+        // 변환된 PostDTO 리스트 반환
+        return postDTOList;
     }
 
 }

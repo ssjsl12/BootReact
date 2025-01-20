@@ -6,6 +6,7 @@ import jdk.jfr.Name;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -45,8 +46,8 @@ public class BoardPost {
     @JoinColumn(name = "gallery_no")
     private Gallery gallery;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Comment> comments; // 게시글에 달린 댓글들
+    @OneToMany(mappedBy = "post",fetch = FetchType.EAGER)
+    private List<Comment> comments = new ArrayList<>(); // 댓글 리스트
 
     @PrePersist
     public void prePersist() {
