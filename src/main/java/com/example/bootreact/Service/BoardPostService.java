@@ -20,16 +20,28 @@ public class BoardPostService {
     @Autowired
     private BoardPostRepository boardPostRepository;
 
+    public BoardPost findById(int id , boolean _isRead) {
+
+        BoardPost boardPost = boardPostRepository.findById(id);
+
+        if(_isRead) {
+            boardPost.incrementViews();
+            boardPostRepository.save(boardPost);
+        }
+
+        return boardPost;
+    }
 
     public List<BoardPost> findGalleryNo(int galleryNo)
     {
-        return boardPostRepository.findByGalleryNo(galleryNo);
+        return boardPostRepository.findByGalleryNoLists(galleryNo);
     }
 
     public void writePost(Gallery gallery, PostDTO postDTO)
     {
         BoardPost boardPost = new BoardPost();
 
+        boardPost.setId(postDTO.getId());
         boardPost.setTitle(postDTO.getTitle());
         boardPost.setContent(postDTO.getContent());
         boardPost.setAuthor(postDTO.getAuthor());
@@ -39,7 +51,6 @@ public class BoardPostService {
         boardPostRepository.save(boardPost);
 
     }
-
 
 
 }

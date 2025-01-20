@@ -1,9 +1,12 @@
 package com.example.bootreact.Entity;
 
+import com.example.bootreact.DTO.CommentDTO;
 import jakarta.persistence.*;
+import jdk.jfr.Name;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "board_post")
@@ -15,14 +18,15 @@ import java.time.LocalDateTime;
 public class BoardPost {
 
     @Id
+    @Column(name ="post_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY) // Auto Increment
-    private Long id; // 게시글 ID
+    private int id; // 게시글 ID
 
     @Column(nullable = false, length = 100) // 제목 최대 길이 제한
     private String title;
 
     @Lob // 대용량 텍스트를 위한 설정
-    @Column(nullable = false)
+    @Column(nullable = false , length = 10000)
     private String content;
 
     @Column(nullable = false, length = 50)
@@ -40,6 +44,9 @@ public class BoardPost {
     @ManyToOne
     @JoinColumn(name = "gallery_no")
     private Gallery gallery;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments; // 게시글에 달린 댓글들
 
     @PrePersist
     public void prePersist() {

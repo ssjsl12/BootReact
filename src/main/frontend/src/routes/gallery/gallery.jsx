@@ -54,6 +54,7 @@ const Gallery = () => {
         if (category) {
             fetchData();
         }
+
     }, [category]); // 카테고리 값이 변경될 때마다 데이터를 새로 요청
 
 

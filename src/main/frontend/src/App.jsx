@@ -5,6 +5,8 @@ import Test from "./routes/Test";
 import Gallery from "./routes/gallery/gallery";
 import GalleryDetail from './routes/gallery/galleryDetail';  // 갤러리 상세 페이지 컴포넌트
 import PostWrite from './routes/gallery/postWrite';
+import PostDetail from "./routes/gallery/postDetail";
+import PostModify from "./routes/gallery/postModify";
 
 function App() {
     const navigate = useNavigate();  // useNavigate 훅 사용
@@ -44,6 +46,8 @@ function App() {
                 <Route path="/:category" element={<Gallery />} />  {/* 카테고리별 갤러리 리스트 */}
                 <Route path="/:category/:galleryId" element={<GalleryDetail />} />  {/* 갤러리 상세 페이지 게시글 리스트 */}
                 <Route path="/:category/:galleryId/write" element={<PostWrite/>} /> {/* 게시글 작성 */}
+                <Route path="/:category/:galleryId/detail/:no" element={<PostDetail/>} /> {/*게시글 상세정보*/}
+                <Route path="/:category/:galleryId/modify/:no" element={<PostModify/>} /> {/*게시글 상세정보*/}
                 {/*게시글 상세페이지추가 */}
             </Routes>
 

@@ -5,24 +5,28 @@ import { useNavigate } from 'react-router-dom';  // useNavigate 사용
 import axios from "axios";
 import './css/galleryDetail.css';
 const GalleryDetail = () => {
-    const { galleryId } = useParams();  // URL에서 galleryId 추출
-    const { category } = useParams(); // URL 파라미터에서 category 가져오기
+    const { galleryId ,category } = useParams();  // URL에서 galleryId 추출
 
     const navigate = useNavigate(); // navigate 함수 선언
 
     const[post, setPost] = useState([]);
     useEffect(() => {
-        // 갤러리 상세 정보를 가져옵니다.
         axios.get(`/${category}/${galleryId}`)
             .then(res => setPost(res.data))
             .catch(err => console.error(err));
-    }, [galleryId]);
+    }, [category, galleryId]); // 의존성 배열 추가
 
     //게시글 제목
 
     const handleWriteClick = () => {
         navigate(`/${category}/${galleryId}/write`); // 원하는 경로로 이동
     };
+
+    const handlePostClick = (no) => {
+        navigate(`/${category}/${galleryId}/detail/${no}`); // 상세 페이지로 이동
+    };
+
+ /*   localStorage.clear();*/
 
     return (
 
@@ -52,8 +56,12 @@ const GalleryDetail = () => {
                 </div>
 
                 {post.map(p => (
-                    <div key={p.id} className="post-item">
-                        <span className="post-title">{p.id}</span>
+                    <div
+                        key={p.id}
+                        className="post-item"
+                        onClick={() => handlePostClick(p.id)} // 클릭 시 해당 게시글 상세 페이지로 이동
+                    >
+                        <span className="post-no">{p.id}</span>
                         <span className="post-title">{p.title}</span>
                         <span className="post-author">{p.author}</span>
                         <span className="post-date">{p.updatedAt}</span>

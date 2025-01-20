@@ -12,6 +12,9 @@ public interface BoardPostRepository extends JpaRepository<BoardPost, Long> {
 
 
     @Query("SELECT bp FROM BoardPost bp WHERE bp.gallery.no = :galleryNo")
-    List<BoardPost> findByGalleryNo(@Param("galleryNo") int galleryNo);
+    List<BoardPost> findByGalleryNoLists(@Param("galleryNo") int galleryNo);
+
+    BoardPost findById(long id);
+
 
 }
