@@ -1,5 +1,6 @@
 package com.example.bootreact.config;
 
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -43,6 +44,17 @@ public class SecurityConfig {
                         ).permitAll() // 허용된 경로
                         .requestMatchers("/AdminPage", "/Admin/**").hasRole("ADMIN") // 관리자 권한 필요
                         .anyRequest().authenticated() // 기타 요청은 인증 필요
+                )
+                .formLogin(config -> config
+                        .loginPage("/login")
+                        .defaultSuccessUrl("/")
+                        .usernameParameter("id")
+                        .failureUrl("/login/error")
+                        .failureHandler((request, response, exception) -> { // 실패 핸들러 추가
+                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 상태 코드 설정
+                            response.setContentType("application/json;charset=UTF-8"); // 응답 형식 설정
+                            response.getWriter().write("{\"success\": false, \"message\": \"로그인 실패: 아이디 또는 비밀번호를 확인하세요.\"}");
+                        })
                 )
                 .logout(logout -> logout
                         .logoutUrl("/api/users/logout")

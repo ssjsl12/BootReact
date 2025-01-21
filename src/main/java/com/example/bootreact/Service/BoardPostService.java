@@ -47,7 +47,7 @@ public class BoardPostService {
         boardPost.setAuthor(postDTO.getAuthor());
         boardPost.setCreatedAt(LocalDateTime.now());
         boardPost.setGallery(gallery);
-
+        boardPost.setPassword(postDTO.getPassword());
         boardPostRepository.save(boardPost);
 
     }

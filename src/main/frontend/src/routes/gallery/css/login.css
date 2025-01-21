@@ -1,0 +1,27 @@
+input[type="email"],
+input[type="password"],
+input[type="id"]
+{
+    width: 100%; /* 원하는 너비 */
+    height: 40px; /* 원하는 높이 */
+    padding: 8px;
+    font-size: 16px;
+    box-sizing: border-box; /* 패딩 포함 */
+    padding: 10px;
+}
+
+.login-form
+{
+    position: relative;
+    top : 10px
+}
+button {
+    margin-top: 10px; /* 버튼 사이 간격 설정 */
+}
+
+.join-btn
+{
+    width: 280px;
+    position: relative;
+    margin: 10px;
+}

@@ -63,7 +63,7 @@ public class PostController {
                     post.getContent(),
                     post.getAuthor(),
                     post.getUpdatedAt(),
-                    post.getViews());
+                    post.getViews(), null);
 
             postDTO.setComments(post.getComments().stream()
                     .map(comment -> new CommentDTO(comment.getId(), comment.getContent(), comment.getAuthor(), comment.getCreatedAt() , comment.getPassword()))
@@ -89,7 +89,8 @@ public class PostController {
                 boardPost.getContent(),
                 boardPost.getAuthor(),
                 boardPost.getUpdatedAt(),
-                boardPost.getViews());
+                boardPost.getViews(),
+                boardPost.getPassword());
 
 
         return postDTO;

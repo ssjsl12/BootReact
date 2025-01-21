@@ -1,5 +1,6 @@
 package com.example.bootreact.Entity;
 
+import com.example.bootreact.Constant.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,8 +19,9 @@ public class User {
     @Column(name = "user_no")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int no;
+    @Column(unique = true)
+    private String id;
 
-    private String userName;
     private String password;
 
     @Column(unique = true)

@@ -17,15 +17,17 @@ public class PostDTO {
     String content;
     String author;
     LocalDateTime updateTime;
+    String password;
     int views;
     private List<CommentDTO> comments = new ArrayList<>(); // 댓글 리스트 포함
-    public void setting(int id, String title, String content, String author , LocalDateTime updateTime , int views ) {
+    public void setting(int id, String title, String content, String author , LocalDateTime updateTime , int views ,String password ) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.author = author;
         this.updateTime = updateTime;
         this.views = views;
+        this.password = password;
     }
 
 }

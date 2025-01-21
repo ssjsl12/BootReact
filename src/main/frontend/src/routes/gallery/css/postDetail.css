@@ -71,27 +71,18 @@
     border-left-width: 0;
 }
 
-.post_title
+.post-detail h1
 {
     font-size: 20px;
     height: 15px;
-
+    text-align: left;
 }
 
-
-/* 수정 버튼 */
-.btn {
-    padding: 10px 20px;
-    width: 5%;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    text-align: center;
-    text-decoration: none;
+.post-detail button
+{
+    width: 10%;
+    position: relative;
+    right :0;
 }
 
 .btn-group .btn:hover {
@@ -141,8 +132,9 @@
     margin-top: 50px;
 }
 
-.comment
+.comment-input textarea
 {
+    min-height: 120px;
     width: 97%;
 }
 

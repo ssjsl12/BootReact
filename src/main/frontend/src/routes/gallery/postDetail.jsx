@@ -53,7 +53,7 @@ const PostDetail = () =>
             <div className="post-detail">
                 <button className="btn" onClick={() =>
                     navigate(`/${category}/${galleryId}/modify/${no}`)}>수정</button>
-                <p className="post_title">{post.title}</p>
+                <h1 className="post_title">{post.title}</h1>
                 <div className="post-meta">
                     <p className="author">{post.author}</p> <p> | </p>
                     <p className="date">{formatDate(post.updateTime)}</p>
@@ -96,7 +96,7 @@ const PostDetail = () =>
                     </div>
 
                     <div className="submit-button">
-                        <button type="button" onClick={handleSubmit}>Submit</button>
+                            <button type="button" onClick={handleSubmit}>Submit</button>
                     </div>
                 </div>
             </div>

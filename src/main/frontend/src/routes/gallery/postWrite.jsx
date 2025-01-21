@@ -55,6 +55,17 @@ const PostWrite = () => {
                     />
                 </div>
                 <div>
+                    <label htmlFor="password">패스워드</label>
+                    <input
+                        type="text"
+                        id="password"
+                        name="password"
+                        value={post.password}
+                        onChange={handleChange}
+                    />
+
+                </div>
+                <div>
                     <label htmlFor="author">작성자</label>
                     <input
                         type="text"
