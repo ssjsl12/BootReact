@@ -73,7 +73,7 @@ const PostModify = () => {
                         onChange={handleChange}
                     />
                 </div>
-                <button type="submit">글쓰기</button>
+                <button type="submit">수정</button>
             </form>
         </div>
     );

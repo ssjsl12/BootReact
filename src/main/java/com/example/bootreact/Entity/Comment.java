@@ -30,6 +30,9 @@ public class Comment {
     private String author; // 댓글 작성자
 
     @Column(nullable = false)
+    private String password;
+
+    @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now(); // 작성일
 
 

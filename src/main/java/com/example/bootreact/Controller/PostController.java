@@ -66,7 +66,7 @@ public class PostController {
                     post.getViews());
 
             postDTO.setComments(post.getComments().stream()
-                    .map(comment -> new CommentDTO(comment.getId(), comment.getContent(), comment.getAuthor(), comment.getCreatedAt()))
+                    .map(comment -> new CommentDTO(comment.getId(), comment.getContent(), comment.getAuthor(), comment.getCreatedAt() , comment.getPassword()))
                     .toList());
 
             return postDTO;

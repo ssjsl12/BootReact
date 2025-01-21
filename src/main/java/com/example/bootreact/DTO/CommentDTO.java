@@ -11,14 +11,16 @@ public class CommentDTO {
 
     private int id; // 댓글 고유 ID
     private String content; // 댓글 내용
+    private String password;
     private String authorName; // 댓글 작성자 이름
     private LocalDateTime createdAt; // 작성일
 
     public CommentDTO() {}
 
-    public CommentDTO(int id, String content, String author, LocalDateTime createdAt) {
+    public CommentDTO(int id, String content, String author, LocalDateTime createdAt , String password) {
         this.id = id;
         this.content = content;
+        this.password = password;
         this.authorName = author;
         this.createdAt = createdAt;
     }

@@ -79,7 +79,7 @@ public class GalleryController {
             // 댓글 목록을 DTO로 변환하여 추가
             postDTO.setComments(post.getComments().stream()
                     .map(comment -> new CommentDTO(comment.getId(), comment.getContent(),
-                            comment.getAuthor(), comment.getCreatedAt()))
+                            comment.getAuthor(), comment.getCreatedAt() , comment.getPassword()))
                     .collect(Collectors.toList()));
 
             // 변환된 PostDTO를 리스트에 추가

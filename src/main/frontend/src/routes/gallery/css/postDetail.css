@@ -1,18 +1,85 @@
+/*게시글 상세보기*/
 .post-detail {
-    display: flex;
-    flex-direction: column; /* 내부 요소를 세로로 정렬 */
     width: 80%;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
     margin-top: 50px;
-    min-height: 650px; /* 최소 높이를 유지 */
+    min-height: 350px; /* 최소 높이를 유지 */
 }
 
-/* 개별 버튼 */
+.comment-group
+{
+    width: 80%;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 0 auto;
+    min-height: 200px; /* 최소 높이를 유지 */
+}
+
+/*댓글*/
+.comment-detail
+{
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.comment-item
+{
+    display: flex;
+}
+
+.comment-author
+{
+    width: 10%;
+}
+
+.comment-content
+{
+    width: 80%;
+}
+
+.comment-time
+{
+    width: 10%;
+}
+
+/*게시글*/
+
+.post-content
+{
+    margin-top: 10px;
+    min-height: 350px; /* 최소 높이를 유지 */
+    width:100%;
+    overflow:hidden;
+    word-wrap:break-word;
+}
+
+/*작성자, 시간, 조회수*/
+.post-meta
+{
+    display: flex;
+    font-weight: bold;
+    gap :10px;
+    border: groove ;
+    border-top-width: 0;
+    border-right-width: 0;
+    border-left-width: 0;
+}
+
+.post_title
+{
+    font-size: 20px;
+    height: 15px;
+
+}
+
+
+/* 수정 버튼 */
 .btn {
     padding: 10px 20px;
     width: 5%;
@@ -31,7 +98,51 @@
     background-color: #0056b3;
 }
 
-.post_title
+.write-comment-group
 {
-    font-size: 25px;
+    margin: 0 auto;
+    height: 150px;
+    padding: 10px;
+    border: groove;
+    display: flex;
 }
+
+.id-pw-group
+{
+    width: 20%;
+    height: 100%;
+}
+
+.id-pw-group .id , .password
+{
+    height: 30%;
+    width: 90%;
+}
+
+.password input
+{
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.comment-input
+{
+    width: 78%;
+    height: 70%;
+}
+
+.submit-button
+{
+    margin-top: 50px;
+}
+
+.comment
+{
+    width: 97%;
+}
+

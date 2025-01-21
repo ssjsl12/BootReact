@@ -28,44 +28,83 @@ const PostDetail = () =>
         const date = new Date(dateString);
         return date.toLocaleString(); // 로컬 시간 형식으로 변환
     };
-    console.log(post);
 
+    function handleSubmit() {
+
+        const authorName = document.getElementById('userid').value;
+        const password = document.getElementById('userpwd').value;
+        const content = document.getElementById('usercomment').value;
+
+       axios.post(`/${category}/${galleryId}/${post.id}/write`, {
+           authorName,
+           password,
+           content
+        })
+            .then(response => {
+                window.location.reload()
+            })
+            .catch(error => {
+
+            });
+    }
 
     return (
-        <div className="post-detail">
-            <button className="btn" onClick={() => navigate(`/${category}/${galleryId}/modify/${no}`)}>수정</button>
-            <p className="post_title">{post.title}</p>
-            <div className="post-meta">
-                <p className="author">{post.author}</p>
-                <p className="date">{formatDate(post.updateTime)}</p>
+        <div>
+            <div className="post-detail">
+                <button className="btn" onClick={() =>
+                    navigate(`/${category}/${galleryId}/modify/${no}`)}>수정</button>
+                <p className="post_title">{post.title}</p>
+                <div className="post-meta">
+                    <p className="author">{post.author}</p> <p> | </p>
+                    <p className="date">{formatDate(post.updateTime)}</p>
+                </div>
+                <div className="post-content">{post.content}</div>
             </div>
-            <div className="post-content">
-                {post.content}
+            <div className="comment-group">
+                <h2>댓글</h2>
+
+                {post.comments && post.comments.length > 0 ? (
+                    post.comments.map(comment => (
+                        <div className="comment-detail">
+                            <div key={comment.id} className="comment-item">
+                                <p className="comment-author">{comment.authorName}</p>
+                                <p className="comment-content">{comment.content}</p>
+                                <p className="comment-time">{new Date(comment.createdAt).toLocaleString()}</p>
+                            </div>
+                        </div>
+                    ))
+                ) : (
+                    <p>No comments available</p>
+                )}
+
+                <div className="write-comment-group">
+
+                    <div className="id-pw-group">
+
+                        <div className="id">
+                            <input type="text" id ="userid" placeholder="Enter your ID"/>
+                        </div>
+
+                        <div className="password">
+                            <input type="password" id="userpwd" placeholder="Enter your password"/>
+                        </div>
+
+                    </div>
+
+                    <div className="comment-input">
+                        <textarea className="comment" id="usercomment" name="comment" placeholder="Write your comment here..."></textarea>
+                    </div>
+
+                    <div className="submit-button">
+                        <button type="button" onClick={handleSubmit}>Submit</button>
+                    </div>
+                </div>
             </div>
 
-            <h2>댓글</h2>
-            {post.comments && post.comments.length > 0 ? (
-                post.comments.map(comment => (
-                    <div key={comment.id} className="comment-item">
-                        <p>{comment.content}</p>
-                        <p>
-                            <strong>Author:</strong> {comment.author}
-                        </p>
-                        <p>
-                            <strong>Created At:</strong>{' '}
-                            {new Date(comment.createdAt).toLocaleString()}
-                        </p>
-                    </div>
-                ))
-            ) : (
-                <p>No comments available</p>
-            )}
 
         </div>
-
-
-
     );
+
 
 };
 
