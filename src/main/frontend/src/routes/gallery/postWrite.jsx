@@ -3,8 +3,9 @@ import { useParams ,useNavigate } from 'react-router-dom';  // URL 파라미터�
 import axios from "axios";
 import './css/postWrite.css';
 
-const PostWrite = () => {
+const PostWrite = ({ isAuthenticated }) => {
     const { category, galleryId } = useParams(); // URL 파라미터에서 category와 galleryId 추출
+
     const navigate = useNavigate();
 
     const [post, setPost] = useState({
@@ -54,26 +55,35 @@ const PostWrite = () => {
                         onChange={handleChange}
                     />
                 </div>
-                <div>
-                    <label htmlFor="password">패스워드</label>
-                    <input
-                        type="text"
-                        id="password"
-                        name="password"
-                        value={post.password}
-                        onChange={handleChange}
-                    />
 
+                <div>
+                    {!isAuthenticated && (
+                        <>
+                            <label htmlFor="password">패스워드</label>
+                            <input
+                                type="text"
+                                id="password"
+                                name="password"
+                                value={post.password}
+                                onChange={handleChange}
+                            />
+                        </>
+                    )}
                 </div>
                 <div>
-                    <label htmlFor="author">작성자</label>
-                    <input
-                        type="text"
-                        id="author"
-                        name="author"
-                        value={post.author}
-                        onChange={handleChange}
-                    />
+                    {/* 작성자 입력 필드: isAuthenticated가 false일 때만 렌더링 */}
+                    {!isAuthenticated && (
+                        <>
+                            <label htmlFor="author">작성자</label>
+                            <input
+                                type="text"
+                                id="author"
+                                name="author"
+                                value={post.author}
+                                onChange={handleChange}
+                            />
+                        </>
+                    )}
                 </div>
                 <div>
                     <label htmlFor="content">내용</label>

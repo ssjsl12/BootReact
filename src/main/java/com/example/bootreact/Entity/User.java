@@ -1,12 +1,14 @@
 package com.example.bootreact.Entity;
 
 import com.example.bootreact.Constant.Role;
+import com.example.bootreact.DTO.JoinMemberDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Builder
 @Data
@@ -27,7 +29,23 @@ public class User {
     @Column(unique = true)
     private String userEmail;
 
-    private String role; // ROLE_USER, ROLE_ADMIN
+    private String nickname;
 
+    @Column(unique = true)
+    private String phone;
 
+    @Enumerated(EnumType.STRING)
+    private Role role; // ROLE_USER, ROLE_ADMIN
+
+    public static User createMember(JoinMemberDTO dto, PasswordEncoder passwordEncoder)
+    {
+        User member = new User();
+        member.setId(dto.getId());
+        member.setNickname(dto.getNickname());
+        member.setUserEmail(dto.getEmail());
+        member.setPhone(dto.getPhone());
+        member.setPassword(passwordEncoder.encode(dto.getPassword()));
+        member.setRole(Role.USER);
+        return member;
+    }
 }

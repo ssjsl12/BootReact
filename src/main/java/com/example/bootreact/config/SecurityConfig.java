@@ -18,6 +18,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -47,19 +48,21 @@ public class SecurityConfig {
                 )
                 .formLogin(config -> config
                         .loginPage("/login")
-                        .defaultSuccessUrl("/")
+                        .defaultSuccessUrl("/gallery/leagueoflegends")
                         .usernameParameter("id")
                         .failureUrl("/login/error")
-                        .failureHandler((request, response, exception) -> { // 실패 핸들러 추가
+                        .failureHandler((request, response, exception) ->
+                        { // 실패 핸들러 추가
                             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED); // 상태 코드 설정
                             response.setContentType("application/json;charset=UTF-8"); // 응답 형식 설정
                             response.getWriter().write("{\"success\": false, \"message\": \"로그인 실패: 아이디 또는 비밀번호를 확인하세요.\"}");
                         })
                 )
                 .logout(logout -> logout
-                        .logoutUrl("/api/users/logout")
-                        .logoutSuccessUrl("/")
-                        .permitAll()
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                        .logoutSuccessUrl("/gallery/leagueoflegends")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
                 )
                 .securityContext(security -> security
                         .securityContextRepository(securityContextRepository()) // SecurityContext와 세션 동기화

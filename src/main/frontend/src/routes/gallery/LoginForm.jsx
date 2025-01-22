@@ -21,33 +21,27 @@ const LoginForm = () => {
 
         const id = document.getElementById('id').value;
         const password = document.getElementById('password').value;
+        const formData = new FormData();
+        formData.append('id', id);
+        formData.append('password', password);
 
-        try {
-            // FormData 생성
-            const formData = new FormData();
-            formData.append('id', id);
-            formData.append('password', password);
+        axios
+            .post("/login", formData)
+            .then((response) => {
+                console.log("로그인 성공:", response);
+                navigate("/gallery"); // 성공 시 React 라우트로 이동
+                window.location.reload();
 
-            // 서버로 POST 요청
-            const response = await axios.post('http://localhost:8080/login', formData);
+            })
+            .catch((error) => {
+                if (error.response && error.response.status === 401) {
+                    console.error("로그인 실패:", error.response.data.message);
+                    alert(error.response.data.message); // 알림 표시
+                } else {
+                    console.error("다른 에러 발생:", error);
+                }
+            });
 
-            console.log(response.status);
-
-            // 로그인 성공
-            if (response.status === 200) {
-                console.log('Login successful:', response.data);
-                alert('로그인 성공!');
-            }
-        } catch (err) {
-            // 로그인 실패 처리
-            if (err.response && err.response.status === 401) {
-                console.error('로그인 실패: 아이디 또는 비밀번호가 올바르지 않습니다.');
-                alert('로그인 실패: 아이디 또는 비밀번호를 확인하세요.');
-            } else {
-                console.error('서버 오류:', err);
-                alert('서버 오류가 발생했습니다. 잠시 후 다시 시도하세요.');
-            }
-        }
     };
 
     return(

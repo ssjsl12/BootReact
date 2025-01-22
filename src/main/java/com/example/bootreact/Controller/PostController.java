@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,13 +39,13 @@ public class PostController {
     }
 
     @PostMapping("{category}/{url}/write")
-    public @ResponseBody ResponseEntity postWrite( @RequestBody PostDTO postDTO ,
-                                                   @PathVariable("category") String category,
-                                                   @PathVariable("url")String url)
+    public @ResponseBody ResponseEntity postWrite(@RequestBody PostDTO postDTO ,
+                                                  @PathVariable("category") String category,
+                                                  @PathVariable("url")String url, Principal principal)
     {
         Gallery gallery =  galleryService.getGalleryByUrl(url);
 
-        boardPostService.writePost(gallery, postDTO);
+        boardPostService.writePost(gallery, postDTO , principal);
 
         return ResponseEntity.ok().build();
     }
@@ -63,7 +64,7 @@ public class PostController {
                     post.getContent(),
                     post.getAuthor(),
                     post.getUpdatedAt(),
-                    post.getViews(), null);
+                    post.getViews(), post.getPassword(),post.isAuthenticated());
 
             postDTO.setComments(post.getComments().stream()
                     .map(comment -> new CommentDTO(comment.getId(), comment.getContent(), comment.getAuthor(), comment.getCreatedAt() , comment.getPassword()))
@@ -90,7 +91,8 @@ public class PostController {
                 boardPost.getAuthor(),
                 boardPost.getUpdatedAt(),
                 boardPost.getViews(),
-                boardPost.getPassword());
+                boardPost.getPassword(),
+                boardPost.isAuthenticated());
 
 
         return postDTO;
@@ -102,12 +104,13 @@ public class PostController {
     public @ResponseBody ResponseEntity modify( @RequestBody PostDTO postDTO ,
                                                 @PathVariable("category") String category,
                                                 @PathVariable("url")String url,
-                                                @PathVariable("no")int no)
+                                                @PathVariable("no")int no,
+                                                Principal principal)
     {
 
         Gallery gallery =  galleryService.getGalleryByUrl(url);
 
-        boardPostService.writePost(gallery, postDTO);
+        boardPostService.modifyPost(gallery, postDTO , principal);
 
 
         return ResponseEntity.ok().build();

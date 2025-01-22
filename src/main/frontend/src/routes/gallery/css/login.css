@@ -1,6 +1,7 @@
 input[type="email"],
 input[type="password"],
-input[type="id"]
+input[type="id"],
+input[type="nickname"]
 {
     width: 100%; /* 원하는 너비 */
     height: 40px; /* 원하는 높이 */

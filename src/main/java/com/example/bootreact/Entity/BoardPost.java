@@ -52,6 +52,9 @@ public class BoardPost {
     @OneToMany(mappedBy = "post",fetch = FetchType.EAGER)
     private List<Comment> comments = new ArrayList<>(); // 댓글 리스트
 
+    @Column(nullable = false)
+    private boolean isAuthenticated;
+
     @PrePersist
     public void prePersist() {
         this.createdAt = LocalDateTime.now();

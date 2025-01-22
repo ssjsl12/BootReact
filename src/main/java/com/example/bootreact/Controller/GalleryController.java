@@ -75,7 +75,7 @@ public class GalleryController {
             // BoardPost에서 PostDTO로 필요한 정보를 설정
             postDTO.setting(post.getId(), post.getTitle(), post.getContent(),
                     post.getAuthor(), post.getUpdatedAt() , post.getViews()
-            ,null);
+            ,null , post.isAuthenticated());
 
             // 댓글 목록을 DTO로 변환하여 추가
             postDTO.setComments(post.getComments().stream()

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.Map;
 
 @RestController
@@ -18,7 +19,8 @@ import java.util.Map;
 public class LoginController {
 
     @GetMapping("/auth-check")
-    public ResponseEntity checkAuthentication(HttpServletRequest request) {
+    public ResponseEntity checkAuthentication()
+    {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         boolean isAuthenticated = authentication != null && authentication.isAuthenticated()
                 && !(authentication instanceof AnonymousAuthenticationToken);

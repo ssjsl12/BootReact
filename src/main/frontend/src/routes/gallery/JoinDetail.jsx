@@ -18,6 +18,21 @@ const JoinForm = () => {
         const id = document.getElementById('id').value;
         const password = document.getElementById('password').value;
         const email = document.getElementById('email').value;
+        const nickname = document.getElementById('nickname').value;
+        const phone = document.getElementById('phone').value;
+
+        axios.post(`/join`, {
+           id, nickname, email, password,phone
+        })
+            .then(response => {
+
+            })
+            .catch(error => {
+
+            });
+
+
+
     }
 
 
@@ -28,13 +43,21 @@ const JoinForm = () => {
 
           <div>
               <h1>회원가입</h1>
-              <form onSubmit={handleJoin}>
+              <form>
                   <div>
                       <label htmlFor="id">아이디</label>
                       <input
                           type="id"
                           id="id"
                           value={form.id}
+                      />
+                  </div>
+                  <div>
+                      <label htmlFor="nickname">닉네임</label>
+                      <input
+                          type="nickname"
+                          id="nickname"
+                          value={form.nickname}
                       />
                   </div>
                   <div>
@@ -50,13 +73,22 @@ const JoinForm = () => {
                       <label htmlFor="Email">이메일</label>
                       <input
                           type="email"
-                          id="password"
+                          id="email"
                           value={form.password}
                       />
                   </div>
 
                   <div>
-                      <button type="submit">회원가입</button>
+                      <label htmlFor="Email">휴대폰</label>
+                      <input
+                          type="text"
+                          id="phone"
+                          value={form.password}
+                      />
+                  </div>
+
+                  <div>
+                      <button type="button" onClick={handleJoin}>회원가입</button>
                   </div>
               </form>
 
