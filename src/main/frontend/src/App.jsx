@@ -17,6 +17,12 @@ function App() {
     const navigate = useNavigate();  // useNavigate 훅 사용
     const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+    const [isOpen, setIsOpen] = useState(false); // 로그인 창 열림/닫힘 상태
+
+    const toggleLoginWindow = () => {
+        setIsOpen(!isOpen); // 상태 반전
+    };
+
     //로그인 처리
     useEffect(() => {
         axios
@@ -44,65 +50,78 @@ function App() {
             <header style={{backgroundColor: "#333"}}>
                 <h1 style={{color: "white"}}>헤더 제목</h1>
                 <h3>서브 타이틀</h3>
+
+                {/* 내비게이션 */}
+                <Navbar className="custom-navbar" expand="lg" data-bs-theme="dark">
+                    <Container>
+                        <Nav className="me-auto">
+                            {
+                                navLinks.map((link, index) => (
+                                    <Nav.Link key={index} onClick={() => navigate(link.path)} className="nav-link">
+                                        {link.label}
+                                    </Nav.Link>
+                                ))}
+                        </Nav>
+                    </Container>
+                </Navbar>
+
+
+
             </header>
 
+            <section>
             <div className="login">
-                <button
-                    className="connet-login"
-                    onClick={() => {
-                        if (isAuthenticated) {
-                            navigate('/logout'); // isAuthenticated가 true일 경우 로그아웃으로 이동
-                        } else {
-                            navigate('/loginForm'); // 그렇지 않으면 로그인 폼으로 이동
-                        }
-                    }}
-                >
+                <button className="connet-login" onClick={toggleLoginWindow}>
                     {isAuthenticated ? '로그아웃 하시겠습니까?' : '로그인을 해주세요.'}
                 </button>
-                <div className="login-option">
-                    <button className="user-gall" onClick={() => navigate("/myGall")}>
-                        MY갤로그
-                    </button>
-                    <button className="bookmark">
-                        즐겨찾기
-                    </button>
-                    <button className="alert-message">
-                        알림
-                    </button>
-                </div>
+
+                {/* 로그인 창 토글 */}
+                {isOpen && (
+                    <div className="login-window">
+                        <button
+                            className="login-action"
+                            onClick={() => {
+                                if (isAuthenticated) {
+                                    navigate('/logout'); // 로그아웃으로 이동
+                                } else {
+                                    navigate('/loginForm'); // 로그인 폼으로 이동
+                                }
+                            }}
+                        >
+                            {isAuthenticated ? '로그아웃' : '로그인'}
+                        </button>
+                        <div className="login-option">
+                            <button className="user-gall" onClick={() => navigate("/myGall")}>
+                                MY갤로그
+                            </button>
+                            <button className="bookmark">
+                                즐겨찾기
+                            </button>
+                            <button className="alert-message">
+                                알림
+                            </button>
+                        </div>
+                    </div>
+                )}
             </div>
-
-            {/* 내비게이션 */}
-            <Navbar className="custom-navbar" expand="lg" data-bs-theme="dark">
-                <Container>
-                    <Nav className="me-auto">
-                        {
-                            navLinks.map((link, index) => (
-                                <Nav.Link key={index} onClick={() => navigate(link.path)} className="nav-link">
-                                    {link.label}
-                                </Nav.Link>
-                            ))}
-                    </Nav>
-                </Container>
-            </Navbar>
-
 
             {/* 라우팅 설정 */}
             <Routes>
-                <Route path="/logout" element={<Logout />} />
-                <Route path="/loginForm" element={<LoginForm />} /> {/* 로그인 */}
-                <Route path="/join" element={<JoinForm/>} /> {/*회원가입*/}
+                <Route path="/logout" element={<Logout/>}/>
+                <Route path="/loginForm" element={<LoginForm/>}/> {/* 로그인 */}
+                <Route path="/join" element={<JoinForm/>}/> {/*회원가입*/}
                 <Route path="/:category" element={<Gallery/>}/> {/* 카테고리별 갤러리 리스트 */}
                 <Route path="/:category/:galleryId" element={<GalleryDetail/>}/> {/* 갤러리 상세 페이지 게시글 리스트 */}
-                <Route path="/:category/:galleryId/write"  element={<PostWrite isAuthenticated={isAuthenticated}/>}/>{/* 게시글 작성 */}
+                <Route path="/:category/:galleryId/write"
+                       element={<PostWrite isAuthenticated={isAuthenticated}/>}/>{/* 게시글 작성 */}
                 <Route path="/:category/:galleryId/detail/:no" element={<PostDetail/>}/> {/*게시글 상세정보*/}
                 <Route path="/:category/:galleryId/modify/:no" element={<PostModify/>}/> {/*게시글 상세정보*/}
             </Routes>
 
-
+            </section>
             {/* 푸터 */}
-            <footer style={{textAlign: 'center', marginTop: '30px'}}>
-                <p className="footer">COPYRIGHT(C) 2024 Nike, Inc, All Rights Reserved</p>
+            <footer className="footer">
+                <p>COPYRIGHT(C) 2024 Nike, Inc, All Rights Reserved</p>
             </footer>
         </div>
     );
