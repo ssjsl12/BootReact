@@ -38,6 +38,7 @@ public class PostController {
         return postDTO;
     }
 
+    //게시글 추가
     @PostMapping("{category}/{url}/write")
     public @ResponseBody ResponseEntity postWrite(@RequestBody PostDTO postDTO ,
                                                   @PathVariable("category") String category,

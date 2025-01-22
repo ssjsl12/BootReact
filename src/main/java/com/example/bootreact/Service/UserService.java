@@ -35,12 +35,10 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
 
-        log.info("로그인 아이디 : " + id);
-
         // 사용자 조회, 없으면 예외 발생
         User user = userRepository.findById(id);
         if (user == null) {
-            log.error("아이디를 찾을 수 없습니다: " + id);
+
             throw new UsernameNotFoundException(id);
         }
 

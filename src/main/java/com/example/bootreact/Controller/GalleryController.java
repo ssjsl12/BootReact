@@ -54,6 +54,7 @@ public class GalleryController {
         return list;
     }
 
+    //게시글 리스트
     @GetMapping("/{category}/{url}")
     public List<PostDTO> getGalleryById(@PathVariable("category") String category, @PathVariable("url") String url) {
         // galleryService를 통해 Gallery 객체를 가져옵니다.
