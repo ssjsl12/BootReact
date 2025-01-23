@@ -1,13 +1,25 @@
-/* 전체적인 폼 스타일 */
-form {
+.form {
     max-width: 600px;
-    height: 700px;
     margin: 0 auto;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: height 0.3s ease; /* 높이 변경 시 부드럽게 처리 */
 }
+
+/* 인증된 경우의 폼 스타일 */
+.form-authenticated {
+    height: auto;
+    max-height: 1000px;
+}
+
+/* 인증되지 않은 경우의 폼 스타일 */
+.form-unauthenticated {
+    height: auto;
+    max-height: 1000px;
+}
+
 
 /* 제목, 작성자, 내용 레이블 스타일 */
 label {
@@ -28,13 +40,13 @@ textarea {
     box-sizing: border-box;
 }
 
-input[type="id"]
-, input[type="password"]
-, input[type="email"],
-input[type="nickname"]
-,input[type="phone"]
-,input[type="title"]
-,input[type="author"]
+input[type="id"],
+input[type="password"],
+input[type="email"],
+input[type="nickname"],
+input[type="phone"],
+input[type="title"],
+input[type="author"]
 {
     width: 100%;
     padding: 12px;
@@ -81,4 +93,69 @@ h1 {
     margin-bottom: 20px;
     font-size: 24px;
     color: #333;
+}
+
+.editable-content {
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    max-height: 450px;
+    overflow-y: auto;
+    text-align: left;
+}
+
+.editable-content-authenticated
+{
+    min-height: 500px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    max-height: 500px;
+    overflow-y: auto;
+    text-align: left;
+}
+
+.editable-content-unauthenticated
+{
+    min-height: 350px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    max-height: 350px;
+    overflow-y: auto;
+    text-align: left;
+}
+.editable-content img {
+    margin: 10px 0;
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+.image-add-btn
+{
+    background-color: #f9f9f9;
+    color: black;
+    width: 140px;
+}
+.image-add-btn:hover
+{
+    background-color: #f9f9f9;
+}
+
+.content-group {
+    display: flex; /* Flexbox 사용 */
+    justify-content: space-between; /* 요소 간 간격 균등 분배 */
+    gap: 10px; /* 요소 간의 간격 (선택 사항) */
+}
+
+.content-group > * {
+    flex: 1; /* 각 자식 요소의 너비를 동일하게 설정 */
+    text-align: center; /* 내용 가운데 정렬 (선택 사항) */
+    padding: 10px; /* 내부 여백 추가 (선택 사항) */
+}
+.write-add-btn
+{
+    position: relative;
+    top : 10px;
 }
