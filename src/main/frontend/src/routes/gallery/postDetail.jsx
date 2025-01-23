@@ -85,6 +85,9 @@ const PostDetail = () =>
             });
     }
 
+    console.log(post);
+
+
     return (
         <div>
             <div className="post-detail">
