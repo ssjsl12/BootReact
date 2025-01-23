@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useParams ,useNavigate } from 'react-router-dom';  // URL 파라미터를 사용하기 위한 useParams
 import axios from "axios";
-
+import "./css/postModify.css";
 
 const PostModify = () => {
+    const { no} = useParams();
     const { category, galleryId } = useParams(); // URL 파라미터에서 category와 galleryId 추출
     const navigate = useNavigate();
-    const { no} = useParams();
+
     const [post, setPost] = useState({
-        title: '',
-        content: '',
-        author: '',
+        title: "",
+        content: "",
+        author: "",
     });
 
     // 글쓰기 폼을 가져옵니다.
@@ -23,7 +24,7 @@ const PostModify = () => {
     // 폼 입력값 변경 처리
     const handleChange = (e) => {
         const { name, value } = e.target;
-        setPost(prevState => ({
+        setPost((prevState) => ({
             ...prevState,
             [name]: value,
         }));
@@ -40,40 +41,105 @@ const PostModify = () => {
             .catch(err => console.error(err));
     };
 
+    // 게시글 내용 처리
+    const handleContentChange = (event) => {
+
+        setPost((prevPost) => ({
+            ...prevPost,
+            content: event.target.innerHTML, // 입력한 내용을 문자열로 상태에 저장
+        }));
+
+        console.log(post);
+
+    };
+
+
+
+    // 이미지 업로드 처리
+    const handleImageUpload = async (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const formData = new FormData();
+            formData.append("image", file);
+
+            try {
+                // 서버로 이미지 업로드 요청
+                const response = await axios.post("/api/upload", formData, {
+                    headers: { "Content-Type": "multipart/form-data" },
+                });
+
+                // 업로드된 이미지 URL 가져오기
+                const imageUrl = response.data;
+
+                // content에 이미지 URL 추가
+                const imgHTML = `<img src="http://localhost:8080/api${imageUrl}" alt="Uploaded Image" style="max-width: 100%;" />`;
+                const newContent = post.content + imgHTML;
+
+                // 상태 업데이트
+                setPost((prevPost) => ({
+                    ...prevPost,
+                    content: newContent,
+                }));
+            } catch (error) {
+                console.error("이미지 업로드 실패:", error);
+            }
+        }
+    };
+
     return (
         <div>
             <h1>{galleryId}</h1>
-            <form onSubmit={handleSubmit}>
+            <form
+                onSubmit={handleSubmit}
+            >
                 <div>
                     <label htmlFor="title">제목</label>
                     <input
-                        type="text"
+                        type="title"
                         id="title"
                         name="title"
                         value={post.title}
                         onChange={handleChange}
                     />
                 </div>
+
                 <div>
-                    <label htmlFor="author">작성자</label>
+
+
                     <input
-                        type="text"
-                        id="author"
-                        name="author"
-                        value={post.author}
-                       readOnly
+                        type="file"
+                        accept="image/*" // 이미지 파일만 선택 가능
+                        onChange={handleImageUpload} // 이미지 파일 선택 시 이벤트 발생
+                        style={{display: "none"}} // 파일 입력창 숨기기
+                        id="image-upload"
                     />
-                </div>
-                <div>
-                    <label htmlFor="content">내용</label>
-                    <textarea
+
+                    <div className="content-group">
+                        <div></div>
+                        <label htmlFor="content">내용</label>
+                        <button
+                            className="image-add-btn"
+                            type="button"
+                            onClick={() => document.getElementById("image-upload").click()}
+                        >
+                            이미지 추가
+                        </button>
+                    </div>
+
+                    <div
                         id="content"
-                        name="content"
-                        value={post.content}
-                        onChange={handleChange}
+                        contentEditable
+                        className="editable-content-authenticated"
+                        dangerouslySetInnerHTML={{
+                            __html: post.content,  // 기존 content 값을 HTML로 삽입
+                        }}
+                        onBlur={handleContentChange}  // 내용 변경 시 상태 업데이트
                     />
                 </div>
-                <button type="submit">수정</button>
+
+                <button className="write-add-btn" type="submit">
+                    글쓰기
+                </button>
             </form>
         </div>
     );

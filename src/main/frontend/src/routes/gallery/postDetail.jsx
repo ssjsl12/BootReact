@@ -85,7 +85,7 @@ const PostDetail = () =>
             });
     }
 
-    console.log(post);
+
 
 
     return (
@@ -97,7 +97,10 @@ const PostDetail = () =>
                     <p className="author">{post.author}</p> <p> | </p>
                     <p className="date">{formatDate(post.updateTime)}</p>
                 </div>
-                <div className="post-content">{post.content}</div>
+                <div
+                    className="post-content"
+                    dangerouslySetInnerHTML={{__html: post.content}} // HTML로 렌더링
+                />
             </div>
             <div className="comment-group">
                 <h2>댓글</h2>
@@ -121,7 +124,7 @@ const PostDetail = () =>
                     <div className="id-pw-group">
 
                         <div className="id">
-                            <input type="id" id ="userid" placeholder="Enter your ID"/>
+                            <input type="id" id="userid" placeholder="Enter your ID"/>
                         </div>
 
                         <div className="password">
@@ -131,11 +134,12 @@ const PostDetail = () =>
                     </div>
 
                     <div className="comment-input">
-                        <textarea className="comment" id="usercomment" name="comment" placeholder="Write your comment here..."></textarea>
+                        <textarea className="comment" id="usercomment" name="comment"
+                                  placeholder="Write your comment here..."></textarea>
                     </div>
 
                     <div className="submit-button">
-                            <button type="button" onClick={handleSubmit}>Submit</button>
+                        <button type="button" onClick={handleSubmit}>Submit</button>
                     </div>
                 </div>
             </div>
