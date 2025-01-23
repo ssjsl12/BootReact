@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api")
@@ -33,26 +35,36 @@ public class ImageUploadController {
 
     // 이미지 업로드 API
     @PostMapping("/upload")
-    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile file) {
-        if (file.isEmpty()) {
+    public ResponseEntity<?> uploadImages(@RequestParam("images") MultipartFile[] files) {
+        if (files == null || files.length == 0) {
             return new ResponseEntity<>("파일이 비어있습니다.", HttpStatus.BAD_REQUEST);
         }
 
+        List<String> fileUrls = new ArrayList<>();
+
         try {
-            // 파일 이름 설정
-            String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
-            Path filePath = Paths.get(UPLOAD_DIR, fileName);
+            for (MultipartFile file : files) {
+                if (!file.isEmpty()) {
+                    // 파일 이름 설정
+                    String fileName = System.currentTimeMillis() + "-" + file.getOriginalFilename();
+                    Path filePath = Paths.get(UPLOAD_DIR, fileName);
 
-            // 파일 저장
-            Files.copy(file.getInputStream(), filePath);
+                    // 파일 저장
+                    Files.copy(file.getInputStream(), filePath);
 
-            // 저장된 파일 URL (클라이언트에서 접근할 수 있도록)
-            String fileUrl = "/uploads/" + fileName;
+                    // 저장된 파일 URL (클라이언트에서 접근할 수 있도록)
+                    String fileUrl = "/uploads/" + fileName;
+                    fileUrls.add(fileUrl);
+                }
+            }
 
-            // 성공적인 업로드 후 URL 반환
-            return new ResponseEntity<>(fileUrl, HttpStatus.OK);
+            log.info("파일 업로드 성공: {}", fileUrls);
+
+            // 성공적인 업로드 후 URL 리스트 반환
+            return new ResponseEntity<>(fileUrls, HttpStatus.OK);
 
         } catch (IOException e) {
+            log.error("파일 저장 중 오류 발생: {}", e.getMessage());
             return new ResponseEntity<>("파일 저장 중 오류 발생", HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

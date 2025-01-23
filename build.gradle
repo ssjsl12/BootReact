@@ -44,10 +44,11 @@ dependencies {
     implementation 'org.springframework:spring-core'
 
 // Apache Commons FileUpload for file upload functionality
-    implementation 'org.apache.commons:commons-fileupload:1.4'
+    implementation 'commons-fileupload:commons-fileupload:1.4'
 
 // Apache Commons IO for file operations
-    implementation 'org.apache.commons:commons-io:2.11.0'
+    implementation 'commons-io:commons-io:2.13.0'
+
 
 }
 
