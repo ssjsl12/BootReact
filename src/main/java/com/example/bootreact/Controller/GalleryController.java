@@ -60,8 +60,6 @@ public class GalleryController {
     @GetMapping("/{category}/{url}/{page}")
     public Page<PostDTO> getGalleryById(@PathVariable("category") String category, @PathVariable("url") String url,@PathVariable("page") int page) {
 
-        log.info(page);
-
         // galleryService를 통해 Gallery 객체를 가져옵니다.
         Gallery gallery = galleryService.getGalleryByUrl(url);
 

@@ -61,8 +61,6 @@ public class ImageUploadController {
     @GetMapping("/uploads/{fileName}")
     public ResponseEntity<Resource> getFile(@PathVariable("fileName") String fileName) {
 
-            log.info(fileName);
-
         try {
             // 파일 경로 설정
             Path filePath = Paths.get(UPLOAD_DIR).resolve(fileName);

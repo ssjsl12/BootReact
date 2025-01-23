@@ -43,11 +43,17 @@ const PostWrite = ({ isAuthenticated }) => {
 
     // 게시글 내용 처리
     const handleContentChange = (event) => {
+
         setPost((prevPost) => ({
             ...prevPost,
-            content: event.target.value, // 입력한 내용을 문자열로 상태에 저장
+            content: event.target.innerHTML, // 입력한 내용을 문자열로 상태에 저장
         }));
+
+        console.log(post);
+
     };
+
+
 
     // 이미지 업로드 처리
         const handleImageUpload = async (event) => {
@@ -157,7 +163,7 @@ const PostWrite = ({ isAuthenticated }) => {
                         dangerouslySetInnerHTML={{
                             __html: post.content,  // 기존 content 값을 HTML로 삽입
                         }}
-                        onInput={handleContentChange}  // 내용 변경 시 상태 업데이트
+                        onBlur={handleContentChange}  // 내용 변경 시 상태 업데이트
                     />
                 </div>
 
