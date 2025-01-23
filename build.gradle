@@ -39,6 +39,16 @@ dependencies {
     implementation 'org.springframework.security:spring-security-oauth2-client'
     implementation 'org.springframework.security:spring-security-crypto'
     implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6:3.1.2.RELEASE'
+
+    // Spring Core dependency for UrlResource
+    implementation 'org.springframework:spring-core'
+
+// Apache Commons FileUpload for file upload functionality
+    implementation 'org.apache.commons:commons-fileupload:1.4'
+
+// Apache Commons IO for file operations
+    implementation 'org.apache.commons:commons-io:2.11.0'
+
 }
 
 tasks.named('test') {
