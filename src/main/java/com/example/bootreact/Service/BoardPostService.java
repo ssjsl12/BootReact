@@ -1,5 +1,6 @@
 package com.example.bootreact.Service;
 
+import com.example.bootreact.DTO.CommentDTO;
 import com.example.bootreact.DTO.PostDTO;
 import com.example.bootreact.Entity.BoardPost;
 import com.example.bootreact.Entity.Gallery;
@@ -50,6 +51,7 @@ public class BoardPostService {
         return boardPostRepository.findByGalleryNoLists(galleryNo);
     }
 
+    //게시글 추가
     public void writePost(Gallery gallery, PostDTO postDTO , Principal principal)
     {
         BoardPost boardPost = new BoardPost();
@@ -78,6 +80,8 @@ public class BoardPostService {
 
     }
 
+
+    //게시글 수정
     public void modifyPost(Gallery gallery, PostDTO postDTO , Principal principal)
     {
         BoardPost boardPost = new BoardPost();
@@ -94,6 +98,7 @@ public class BoardPostService {
 
     }
 
+    //게시글 페이징 처리
     public Page<PostDTO> getPagingPost(PageRequest pageRequest , List<PostDTO> items) {
 
         int start = (int) pageRequest.getOffset();
@@ -103,6 +108,27 @@ public class BoardPostService {
         List<PostDTO> pageContent = items.subList(start, end);
         return new PageImpl<>(pageContent, pageRequest, items.size());
     }
+
+    public PostDTO setPost(BoardPost post)
+    {
+        PostDTO postDTO = new PostDTO();
+
+        postDTO.setting(post.getId(),
+                post.getTitle(),
+                post.getContent(),
+                post.getAuthor(),
+                post.getUpdatedAt(),
+                post.getViews(),
+                post.getPassword(),
+                post.isAuthenticated());
+
+        postDTO.setComments(post.getComments().stream()
+                .map(comment -> new CommentDTO(comment.getId(), comment.getContent(), comment.getAuthor(), comment.getCreatedAt() , comment.getPassword()))
+                .toList());
+
+        return postDTO;
+    }
+
 
 
 

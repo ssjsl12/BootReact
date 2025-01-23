@@ -59,17 +59,7 @@ public class PostController {
         {
             BoardPost post = boardPostService.findById(no , true);
 
-            PostDTO postDTO = new PostDTO();
-            postDTO.setting(post.getId(),
-                    post.getTitle(),
-                    post.getContent(),
-                    post.getAuthor(),
-                    post.getUpdatedAt(),
-                    post.getViews(), post.getPassword(),post.isAuthenticated());
-
-            postDTO.setComments(post.getComments().stream()
-                    .map(comment -> new CommentDTO(comment.getId(), comment.getContent(), comment.getAuthor(), comment.getCreatedAt() , comment.getPassword()))
-                    .toList());
+            PostDTO postDTO = boardPostService.setPost(post);
 
             return postDTO;
         }
@@ -83,18 +73,9 @@ public class PostController {
                                @PathVariable("no")int no)
     {
 
-        BoardPost boardPost = boardPostService.findById(no , false);
+        BoardPost post = boardPostService.findById(no , false);
 
-        PostDTO postDTO = new PostDTO();
-        postDTO.setting(boardPost.getId(),
-                boardPost.getTitle(),
-                boardPost.getContent(),
-                boardPost.getAuthor(),
-                boardPost.getUpdatedAt(),
-                boardPost.getViews(),
-                boardPost.getPassword(),
-                boardPost.isAuthenticated());
-
+        PostDTO postDTO = boardPostService.setPost(post);
 
         return postDTO;
     }
@@ -112,7 +93,6 @@ public class PostController {
         Gallery gallery =  galleryService.getGalleryByUrl(url);
 
         boardPostService.modifyPost(gallery, postDTO , principal);
-
 
         return ResponseEntity.ok().build();
     }
