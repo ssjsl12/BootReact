@@ -48,7 +48,7 @@ public class SecurityConfig {
                 )
                 .formLogin(config -> config
                         .loginPage("/login")
-                        .defaultSuccessUrl("/gallery/leagueoflegends")
+                        .defaultSuccessUrl("/gallery/leagueoflegends/0")
                         .usernameParameter("id")
                         .failureUrl("/login/error")
                         .failureHandler((request, response, exception) ->
@@ -60,7 +60,7 @@ public class SecurityConfig {
                 )
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/gallery/leagueoflegends")
+                        .logoutSuccessUrl("/gallery/leagueoflegends/0")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                 )

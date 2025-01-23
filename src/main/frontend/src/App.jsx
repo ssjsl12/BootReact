@@ -70,16 +70,14 @@ function App() {
             </header>
 
             <section>
-            <div className="login">
-                <button className="connet-login" onClick={toggleLoginWindow}>
-                    {isAuthenticated ? '로그아웃 하시겠습니까?' : '로그인을 해주세요.'}
-                </button>
+                <div className="login">
+                    <button className="connet-login" onClick={toggleLoginWindow}>
+                        {isAuthenticated ? '로그아웃 하시겠습니까?' : '로그인을 해주세요.'}
+                    </button>
 
-                {/* 로그인 창 토글 */}
-                {isOpen && (
-                    <div className="login-window">
+                    {/* 로그인 창 토글 */}
+                    <div className={`login-window ${isOpen ? 'open' : ''}`}>
                         <div className="login-option">
-
                             <button
                                 className="login-action"
                                 onClick={() => {
@@ -99,13 +97,10 @@ function App() {
                             <button className="bookmark" onClick={() => navigate("/myBookmark")}>
                                 즐겨찾기
                             </button>
-                            <button className="alert-message">
-                                알림
-                            </button>
+                            <button className="alert-message">알림</button>
                         </div>
                     </div>
-                )}
-            </div>
+                </div>
 
                 {/* 라우팅 설정 */}
                 <Routes>
@@ -115,15 +110,15 @@ function App() {
                     <Route path="/:category" element={<Gallery/>}/> {/* 카테고리별 갤러리 리스트 */}
                     <Route path="/:category/:galleryId/:page" element={<GalleryDetail/>}/> {/* 갤러리 상세 페이지 게시글 리스트 */}
                     <Route path="/:category/:galleryId/write"
-                       element={<PostWrite isAuthenticated={isAuthenticated}/>}/>{/* 게시글 작성 */}
-                <Route path="/:category/:galleryId/detail/:no" element={<PostDetail/>}/> {/*게시글 상세정보*/}
-                <Route path="/:category/:galleryId/modify/:no" element={<PostModify/>}/> {/*게시글 상세정보*/}
-            </Routes>
+                           element={<PostWrite isAuthenticated={isAuthenticated}/>}/>{/* 게시글 작성 */}
+                    <Route path="/:category/:galleryId/detail/:no" element={<PostDetail/>}/> {/*게시글 상세정보*/}
+                    <Route path="/:category/:galleryId/modify/:no" element={<PostModify/>}/> {/*게시글 상세정보*/}
+                </Routes>
 
             </section>
             {/* 푸터 */}
             <footer className="footer">
-                <p>COPYRIGHT(C) 2024 Nike, Inc, All Rights Reserved</p>
+                <p>COPYRIGHT(C) 2024 Inc, All Rights Reserved</p>
             </footer>
         </div>
     );
