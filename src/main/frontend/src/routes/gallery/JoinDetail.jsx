@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import './css/join.css'
 import {Await, useNavigate, useParams} from "react-router-dom";
 
 const JoinForm = () => {
@@ -39,7 +40,7 @@ const JoinForm = () => {
 
   return (
 
-      <div className="login-form">
+      <div className="join-form">
 
           <div>
               <h1>회원가입</h1>
@@ -81,7 +82,7 @@ const JoinForm = () => {
                   <div>
                       <label htmlFor="Email">휴대폰</label>
                       <input
-                          type="text"
+                          type="phone"
                           id="phone"
                           value={form.password}
                       />

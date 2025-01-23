@@ -11,18 +11,40 @@ input[type="nickname"]
     padding: 10px;
 }
 
+.login-form form{
+    max-width: 600px;
+    height: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.join-btn-group {
+    display: flex; /* Flexbox 사용 */
+    justify-content: space-evenly; /* 버튼 간 간격 균등 분배 */
+    align-items: center; /* 세로 정렬 */
+    gap: 10px; /* 버튼 사이의 간격 */
+    width: 100%; /* 부모 컨테이너의 너비에 맞춤 */
+}
+
 .login-form
 {
     position: relative;
-    top : 10px
+    top : 150px;
 }
-button {
-    margin-top: 10px; /* 버튼 사이 간격 설정 */
+
+.login-btn
+{
+    position: relative;
+
 }
 
 .join-btn
 {
-    width: 280px;
     position: relative;
-    margin: 10px;
+    top:10px;
+    background-color: #f9f9f9;
+    color: black;
 }

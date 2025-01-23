@@ -1,6 +1,7 @@
 /* 전체적인 폼 스타일 */
 form {
     max-width: 600px;
+    height: 700px;
     margin: 0 auto;
     padding: 20px;
     background-color: #f9f9f9;
@@ -17,7 +18,24 @@ label {
 }
 
 /* 입력창 스타일 */
-input[type="text"], textarea {
+textarea {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+input[type="id"]
+, input[type="password"]
+, input[type="email"],
+input[type="nickname"]
+,input[type="phone"]
+,input[type="title"]
+,input[type="author"]
+{
     width: 100%;
     padding: 12px;
     margin-bottom: 20px;
@@ -29,7 +47,7 @@ input[type="text"], textarea {
 
 /* 텍스트영역 크기 조정 */
 textarea {
-    min-height: 150px;
+    min-height: 280px;
     resize: vertical;
 }
 

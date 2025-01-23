@@ -36,7 +36,7 @@ const PostWrite = ({ isAuthenticated }) => {
 
         axios.post(`/${category}/${galleryId}/write`, post)
             .then(res => {
-                navigate(`/${category}/${galleryId}`);
+                navigate(`/${category}/${galleryId}/0`);
             })
             .catch(err => console.error(err));
     };
@@ -48,7 +48,7 @@ const PostWrite = ({ isAuthenticated }) => {
                 <div>
                     <label htmlFor="title">제목</label>
                     <input
-                        type="text"
+                        type="title"
                         id="title"
                         name="title"
                         value={post.title}
@@ -61,7 +61,7 @@ const PostWrite = ({ isAuthenticated }) => {
                         <>
                             <label htmlFor="password">패스워드</label>
                             <input
-                                type="text"
+                                type="password"
                                 id="password"
                                 name="password"
                                 value={post.password}
@@ -76,7 +76,7 @@ const PostWrite = ({ isAuthenticated }) => {
                         <>
                             <label htmlFor="author">작성자</label>
                             <input
-                                type="text"
+                                type="author"
                                 id="author"
                                 name="author"
                                 value={post.author}

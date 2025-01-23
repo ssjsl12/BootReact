@@ -78,23 +78,25 @@ function App() {
                 {/* 로그인 창 토글 */}
                 {isOpen && (
                     <div className="login-window">
-                        <button
-                            className="login-action"
-                            onClick={() => {
-                                if (isAuthenticated) {
-                                    navigate('/logout'); // 로그아웃으로 이동
-                                } else {
-                                    navigate('/loginForm'); // 로그인 폼으로 이동
-                                }
-                            }}
-                        >
-                            {isAuthenticated ? '로그아웃' : '로그인'}
-                        </button>
                         <div className="login-option">
+
+                            <button
+                                className="login-action"
+                                onClick={() => {
+                                    if (isAuthenticated) {
+                                        navigate('/logout'); // 로그아웃으로 이동
+                                    } else {
+                                        navigate('/loginForm'); // 로그인 폼으로 이동
+                                    }
+                                }}
+                            >
+                                {isAuthenticated ? '로그아웃' : '로그인'}
+                            </button>
+
                             <button className="user-gall" onClick={() => navigate("/myGall")}>
                                 MY갤로그
                             </button>
-                            <button className="bookmark">
+                            <button className="bookmark" onClick={() => navigate("/myBookmark")}>
                                 즐겨찾기
                             </button>
                             <button className="alert-message">
@@ -105,14 +107,14 @@ function App() {
                 )}
             </div>
 
-            {/* 라우팅 설정 */}
-            <Routes>
-                <Route path="/logout" element={<Logout/>}/>
-                <Route path="/loginForm" element={<LoginForm/>}/> {/* 로그인 */}
-                <Route path="/join" element={<JoinForm/>}/> {/*회원가입*/}
-                <Route path="/:category" element={<Gallery/>}/> {/* 카테고리별 갤러리 리스트 */}
-                <Route path="/:category/:galleryId/:page" element={<GalleryDetail/>}/> {/* 갤러리 상세 페이지 게시글 리스트 */}
-                <Route path="/:category/:galleryId/write"
+                {/* 라우팅 설정 */}
+                <Routes>
+                    <Route path="/logout" element={<Logout/>}/>
+                    <Route path="/loginForm" element={<LoginForm/>}/> {/* 로그인 */}
+                    <Route path="/join" element={<JoinForm/>}/> {/*회원가입*/}
+                    <Route path="/:category" element={<Gallery/>}/> {/* 카테고리별 갤러리 리스트 */}
+                    <Route path="/:category/:galleryId/:page" element={<GalleryDetail/>}/> {/* 갤러리 상세 페이지 게시글 리스트 */}
+                    <Route path="/:category/:galleryId/write"
                        element={<PostWrite isAuthenticated={isAuthenticated}/>}/>{/* 게시글 작성 */}
                 <Route path="/:category/:galleryId/detail/:no" element={<PostDetail/>}/> {/*게시글 상세정보*/}
                 <Route path="/:category/:galleryId/modify/:no" element={<PostModify/>}/> {/*게시글 상세정보*/}

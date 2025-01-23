@@ -118,7 +118,7 @@ const PostDetail = () =>
                     <div className="id-pw-group">
 
                         <div className="id">
-                            <input type="text" id ="userid" placeholder="Enter your ID"/>
+                            <input type="id" id ="userid" placeholder="Enter your ID"/>
                         </div>
 
                         <div className="password">

@@ -69,12 +69,14 @@ const LoginForm = () => {
                     </div>
 
                     <div>
-                        <button type="submit">로그인</button>
+                        <button className="login-btn" type="submit">로그인</button>
+                    </div>
+
+                    <div className="join-btn-group">
+                        <div className="join-btn" onClick={() => navigate('/join')}>회원가입</div>
+                        <div className="join-btn" onClick={() => navigate('/findpwd')}>비밀번호 찾기</div>
                     </div>
                 </form>
-
-                <button className="join-btn" onClick={() => navigate('/join')}>회원가입</button>
-                <button className="join-btn" onClick={() => navigate('/findpwd')}>비밀번호 찾기</button>
 
             </div>
 
