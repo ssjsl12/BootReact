@@ -88,7 +88,7 @@ const Gallery = () => {
                                 <div
                                     key={gallery.no}
                                     className="gallery-item"
-                                    onClick={() => navigate(`/${category}/${gallery.url}`)} // 클릭 시 디테일 페이지로 이동
+                                    onClick={() => navigate(`/${category}/${gallery.url}/0`)} // 클릭 시 디테일 페이지로 이동
                                 >
                                     <h3>{gallery.galleryKorName}</h3>
                                 </div>

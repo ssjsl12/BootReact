@@ -111,7 +111,7 @@ function App() {
                 <Route path="/loginForm" element={<LoginForm/>}/> {/* 로그인 */}
                 <Route path="/join" element={<JoinForm/>}/> {/*회원가입*/}
                 <Route path="/:category" element={<Gallery/>}/> {/* 카테고리별 갤러리 리스트 */}
-                <Route path="/:category/:galleryId" element={<GalleryDetail/>}/> {/* 갤러리 상세 페이지 게시글 리스트 */}
+                <Route path="/:category/:galleryId/:page" element={<GalleryDetail/>}/> {/* 갤러리 상세 페이지 게시글 리스트 */}
                 <Route path="/:category/:galleryId/write"
                        element={<PostWrite isAuthenticated={isAuthenticated}/>}/>{/* 게시글 작성 */}
                 <Route path="/:category/:galleryId/detail/:no" element={<PostDetail/>}/> {/*게시글 상세정보*/}

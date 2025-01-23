@@ -8,6 +8,9 @@ import com.example.bootreact.Repository.BoardPostRepository;
 import com.example.bootreact.Repository.UserRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -89,6 +92,16 @@ public class BoardPostService {
 
         boardPostRepository.save(boardPost);
 
+    }
+
+    public Page<PostDTO> getPagingPost(PageRequest pageRequest , List<PostDTO> items) {
+
+        int start = (int) pageRequest.getOffset();
+        int end = Math.min((start + pageRequest.getPageSize()), items.size());
+
+
+        List<PostDTO> pageContent = items.subList(start, end);
+        return new PageImpl<>(pageContent, pageRequest, items.size());
     }
 
 

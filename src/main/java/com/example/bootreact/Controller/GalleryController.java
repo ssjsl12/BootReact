@@ -10,6 +10,8 @@ import com.example.bootreact.Service.BoardPostService;
 import com.example.bootreact.Service.GalleryService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -55,8 +57,11 @@ public class GalleryController {
     }
 
     //게시글 리스트
-    @GetMapping("/{category}/{url}")
-    public List<PostDTO> getGalleryById(@PathVariable("category") String category, @PathVariable("url") String url) {
+    @GetMapping("/{category}/{url}/{page}")
+    public Page<PostDTO> getGalleryById(@PathVariable("category") String category, @PathVariable("url") String url,@PathVariable("page") int page) {
+
+        log.info(page);
+
         // galleryService를 통해 Gallery 객체를 가져옵니다.
         Gallery gallery = galleryService.getGalleryByUrl(url);
 
@@ -88,8 +93,11 @@ public class GalleryController {
             postDTOList.add(postDTO);
         }
 
+        PageRequest pageRequest = PageRequest.of(page, 8);
+        Page<PostDTO> pagePostDto = boardPostService.getPagingPost(pageRequest, postDTOList);
+
         // 변환된 PostDTO 리스트 반환
-        return postDTOList;
+        return pagePostDto;
     }
 
 }
