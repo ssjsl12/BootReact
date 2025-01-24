@@ -49,7 +49,7 @@ dependencies {
 // Apache Commons IO for file operations
     implementation 'commons-io:commons-io:2.13.0'
 
-
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
 }
 
 tasks.named('test') {

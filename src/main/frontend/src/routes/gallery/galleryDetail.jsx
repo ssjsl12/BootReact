@@ -38,7 +38,7 @@ const GalleryDetail = () => {
     }
 
     if (!data || !data.content || data.content.length === 0) {
-        return <p>No posts available.</p>; // 데이터가 없을 때 처리
+       /* return <p>No posts available.</p>; // 데이터가 없을 때 처리*/
     }
 
     const handlePageChange = (newPage) => {
@@ -73,6 +73,8 @@ const GalleryDetail = () => {
                 </div>
             </div>
 
+
+
             <div className="post-list">
                 <div className="post-item-header">
                     <span className="post-no">번호</span>
@@ -81,19 +83,23 @@ const GalleryDetail = () => {
                     <span className="post-date">업데이트 시간</span>
                     <span className="post-views">조회수</span>
                 </div>
-                {data.content.map(p => (
-                    <div
-                        key={p.id}
-                        className="post-item"
-                        onClick={() => handlePostClick(p.id)} // 클릭 시 해당 게시글 상세 페이지로 이동
-                    >
-                        <span className="post-no">{p.id}</span>
-                        <span className="post-title">{p.title}</span>
-                        <span className="post-author">{p.author}</span>
-                        <span className="post-date">{formatDate(p.updateTime)}</span>
-                        <span className="post-views">{p.views}</span>
-                    </div>
-                ))}
+                {data.content && data.content.length > 0 ? (
+                    data.content.map(p => (
+                        <div
+                            key={p.id}
+                            className="post-item"
+                            onClick={() => handlePostClick(p.id)} // 클릭 시 해당 게시글 상세 페이지로 이동
+                        >
+                            <span className="post-no">{p.id}</span>
+                            <span className="post-title">{p.title}</span>
+                            <span className="post-author">{p.author}</span>
+                            <span className="post-date">{formatDate(p.updateTime)}</span>
+                            <span className="post-views">{p.views}</span>
+                        </div>
+                    ))
+                ) : (
+                    <p>No posts available</p> // 게시글이 없을 때 표시할 메시지
+                )}
 
             </div>
 

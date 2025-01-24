@@ -3,9 +3,12 @@ import React, { useEffect, useState } from "react";
 import './css/join.css'
 import {Await, useNavigate, useParams} from "react-router-dom";
 
+//회원가입 폼
 const JoinForm = () => {
 
     const [form ,setForm] = useState([]);
+
+    var authCode;
 
     useEffect(() => {
         axios.get(`/join`)
@@ -27,28 +30,55 @@ const JoinForm = () => {
         })
             .then(response => {
 
+                alert("회원가입에 성공하였습니다.");
+
             })
             .catch(error => {
-
+                alert("회원가입을 다시 시도해주세요.");
             });
+    }
 
+    function emailAuth() {
+        const email = document.getElementById('email').value;
 
+        // URL 경로에 '/' 추가 (상대 경로 또는 절대 경로 확인)
+        axios.post('/auth/email', {
+            email: email // Key와 value가 같다면 'email'로 생략 가능
+        })
+            .then(response => {
+                console.log("인증 요청 완료 인증 번호 : ", response.data); // 응답 데이터를 출력
+                document.getElementById('auth-code-container').style.display = 'block';
+                authCode = response.data;
+            })
+            .catch(error => {
+                console.error("인증 요청 실패", error); // 오류 메시지와 함께 출력
+            });
+    }
 
+    function verifyAuthCode(auth_code)
+    {
+        if(authCode === auth_code)
+        {
+            document.getElementById('auth-code-container').style.display = 'none';
+            alert("인증에 성공했습니다! 🎉"); // 알람 표시
+        }
+        else
+        {
+            alert("잘못된 인증번호입니다. 다시 시도해주세요."); // 알람 표시
+        }
     }
 
 
 
   return (
-
       <div className="join-form">
-
           <div>
               <h1>회원가입</h1>
-              <form>
+              <form className="form-container">
                   <div>
                       <label htmlFor="id">아이디</label>
                       <input
-                          type="id"
+                          type="text"
                           id="id"
                           value={form.id}
                       />
@@ -56,7 +86,7 @@ const JoinForm = () => {
                   <div>
                       <label htmlFor="nickname">닉네임</label>
                       <input
-                          type="nickname"
+                          type="text"
                           id="nickname"
                           value={form.nickname}
                       />
@@ -69,33 +99,49 @@ const JoinForm = () => {
                           value={form.password}
                       />
                   </div>
-
                   <div>
-                      <label htmlFor="Email">이메일</label>
+                      <label htmlFor="email">이메일</label>
                       <input
                           type="email"
                           id="email"
-                          value={form.password}
+                          value={form.email}
                       />
+                      <button className="email-auth" type="button" onClick={emailAuth}>
+                          인증
+                      </button>
                   </div>
-
-                  <div>
-                      <label htmlFor="Email">휴대폰</label>
+                  <div id="auth-code-container" style={{display: 'none', marginTop: '10px'}}>
+                      <label htmlFor="auth-code">인증번호</label>
                       <input
-                          type="phone"
+                          type="email"
+                          id="auth-code"
+                          placeholder="인증번호를 입력하세요"
+                      />
+                      <button
+                          className="verify-auth-code"
+                          type="button"
+                          onClick={() => verifyAuthCode(document.getElementById('auth-code').value)}
+                      >
+                          인증번호 확인
+                      </button>
+                  </div>
+                  <div>
+                      <label htmlFor="phone">휴대폰</label>
+                      <input
+                          type="text"
                           id="phone"
-                          value={form.password}
+                          value={form.phone}
                       />
                   </div>
-
                   <div>
-                      <button type="button" onClick={handleJoin}>회원가입</button>
+                      <button type="button" onClick={handleJoin}>
+                          회원가입
+                      </button>
                   </div>
               </form>
-
           </div>
-
       </div>
+
 
   );
 

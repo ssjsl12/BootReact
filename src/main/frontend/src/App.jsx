@@ -41,7 +41,6 @@ function App() {
         { path: '/minergallery', label: '마이너갤' },
         { path: '/minigallery', label: '미니갤' },
         { path: '/persongallery', label: '인물갤' },
-        { path: '/test' , label : '테스트' }
     ];
 
     return (

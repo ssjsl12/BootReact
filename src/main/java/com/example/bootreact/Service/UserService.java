@@ -5,6 +5,7 @@ import com.example.bootreact.Entity.User;
 import com.example.bootreact.Repository.UserRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -29,6 +30,11 @@ public class UserService implements UserDetailsService {
         User user = User.createMember(dto ,passwordEncoder);
 
         userRepository.save(user);
+    }
+
+    public User findByEmail(String email) {
+
+        return userRepository.findByUserEmail(email);
     }
 
     //로그인 알아서 처리
