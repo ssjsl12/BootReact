@@ -57,7 +57,12 @@
 .comment-time
 {
     width: 20%;
+}
 
+.comment-delete
+{
+    width: 10%;
+    background-color: transparent;
 }
 
 /*게시글*/
@@ -154,12 +159,12 @@
 
 .submit-button
 {
-    margin-top: 50px;
+   display: flex;
 }
 
 .comment-input textarea
 {
-    min-height: 120px;
+    min-height: 125px;
     width: 97%;
 }
 

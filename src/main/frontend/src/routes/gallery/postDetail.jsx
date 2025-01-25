@@ -13,8 +13,8 @@ const PostDetail = () =>
     const [password, setPassword] = useState('');
     const [type, setType] = useState([]);
     const navigate = useNavigate(); // navigate 함수 선언
-    const { no} = useParams();
-
+    const { no} = useParams(); // 게시글 넘버
+    const [ commentNo ,setCommentNo] = useState( []); // 코멘트 넘버
     const[post, setPost] = useState([]);
 
     useEffect(() => {
@@ -38,10 +38,17 @@ const PostDetail = () =>
         setType("modify");
     }
 
-    function postdelete()
+    function postDelete()
     {
         setShowModal(true);
         setType("delete");
+    }
+
+    function commentDelete(commentNum)
+    {
+        setCommentNo(commentNum);
+        setShowModal(true);
+        setType("commentdelete");
     }
 
 
@@ -57,7 +64,18 @@ const PostDetail = () =>
 
     const isAuthentic = async (password) => {
         try {
-            const response = await axios.post('/api/verify-password', {  password, postPassword: post.password });  // 서버로 비밀번호 확인 요청
+
+            var response = null;
+
+            if(type === "modify" || type == "delete")
+            {
+                 response = await axios.post('/api/verify-password', {  password, postPassword: post.password });  // 서버로 비밀번호 확인 요청 - 게시글
+            }
+            else{
+
+                 response = await axios.post('/api/verify-comment-password', {  password, postPassword: post.password });  //서버에서 비밀번호 확인 - 댓글
+            }
+
 
             if (response.data.isValid) {
 
@@ -67,7 +85,7 @@ const PostDetail = () =>
                 {
                     navigate(`/${category}/${galleryId}/modify/${no}`);
                 }
-                else
+                else if(type === "delete")
                 {
                     //삭제
                     axios.post(`/${category}/${galleryId}/delete/${no}`)
@@ -80,6 +98,19 @@ const PostDetail = () =>
                         });
 
                     navigate(`/${category}/${galleryId}/0`);
+                }
+                else
+                {
+                    axios.post(`/comment/delete/${commentNo}`)
+                        .then(res => {
+                            window.location.reload()
+                            alert(res.data);
+                        })
+                        .catch(error => {
+                            alert(error);
+                        })
+
+                    navigate(`/${category}/${galleryId}/detail/${no}`);
                 }
 
 
@@ -121,7 +152,7 @@ const PostDetail = () =>
             <div className="post-detail">
                 <div className="btn-detail-group">
                 <button className="btn" onClick={modify}>수정</button>
-                <button className="btn" onClick={postdelete}>삭제</button>
+                <button className="btn" onClick={postDelete}>삭제</button>
                 </div>
                 <h1 className="post_title">{post.title}</h1>
                 <div className="post-meta">
@@ -143,6 +174,7 @@ const PostDetail = () =>
                                 <p className="comment-author">{comment.authorName}</p>
                                 <p className="comment-content">{comment.content}</p>
                                 <p className="comment-time">{new Date(comment.createdAt).toLocaleString()}</p>
+                                <button className="comment-delete" onClick={() => commentDelete(comment.id)}>X</button>
                             </div>
                         </div>
                     ))

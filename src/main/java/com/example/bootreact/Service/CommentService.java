@@ -7,6 +7,7 @@ import com.example.bootreact.Repository.BoardPostRepository;
 import com.example.bootreact.Repository.CommentRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,6 +25,9 @@ public class CommentService
     @Autowired
     private BoardPostRepository postRepository;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     public void AddComment(CommentDTO commentDTO , int postId)
     {
         BoardPost post = postRepository.findById(postId);
@@ -32,11 +36,16 @@ public class CommentService
 
         comment.setAuthor(commentDTO.getAuthorName());
         comment.setContent(commentDTO.getContent());
-        comment.setPassword(commentDTO.getPassword());
+        comment.setPassword(passwordEncoder.encode(commentDTO.getPassword()));
         comment.setCreatedAt(LocalDateTime.now());
         comment.setPost(post);
 
         commentRepository.save(comment);
+    }
+
+    public void deleteComment(Long no)
+    {
+        commentRepository.deleteById(no);
     }
 
 

@@ -28,8 +28,6 @@ public class PasswordController {
     @PostMapping("/verify-password")
     public ResponseEntity<Map<String, Object>> verifyPassword(@RequestBody Map<String, String> request)
     {
-
-
         String inputPassword = request.get("password");
         String postPassword = request.get("postPassword");
 
@@ -40,4 +38,19 @@ public class PasswordController {
 
         return ResponseEntity.ok(response);
     }
+
+    @PostMapping("/verify-comment-password")
+    public ResponseEntity<Map<String, Object>> verifyCommentPassword(@RequestBody Map<String, String> request)
+    {
+        String inputPassword = request.get("password");
+        String postPassword = request.get("postPassword");
+
+        boolean isValid = passwordEncoder.matches(inputPassword, postPassword);
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("isValid", isValid);
+
+        return ResponseEntity.ok(response);
+    }
+
 }
