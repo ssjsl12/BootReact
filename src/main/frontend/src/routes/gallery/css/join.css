@@ -58,3 +58,74 @@ button:hover {
 .email-auth:hover {
     background-color: #0056b3; /* 호버 시 버튼 색상 */
 }
+
+.id-group {
+    display: flex;
+    align-items: center; /* 요소들 수직 가운데 정렬 */
+    gap: 10px; /* 요소 간격 */
+    margin-bottom: 10px; /* 아래 간격 */
+}
+
+.id-label {
+    width: 50px; /* 라벨 고정 너비 */
+    text-align: right; /* 라벨 텍스트 오른쪽 정렬 */
+}
+
+.id-input {
+    width: 800px;
+    flex: 1; /* 입력 필드가 남는 공간을 차지하도록 설정 */
+    padding: 8px; /* 입력 필드 안쪽 여백 */
+    font-size: 14px; /* 글자 크기 */
+    border: 1px solid #ccc; /* 테두리 설정 */
+    border-radius: 4px; /* 모서리 둥글게 */
+}
+
+.id-button {
+    padding: 8px 12px; /* 버튼 안쪽 여백 */
+    font-size: 14px; /* 버튼 글자 크기 */
+    background-color: #007BFF; /* 버튼 배경색 */
+    color: white; /* 버튼 글자색 */
+    border: none; /* 테두리 제거 */
+    border-radius: 4px; /* 모서리 둥글게 */
+    cursor: pointer; /* 커서 모양 변경 */
+    width: 100px;
+}
+
+.email-auth
+{
+    padding: 8px 12px; /* 버튼 안쪽 여백 */
+    font-size: 14px; /* 버튼 글자 크기 */
+    background-color: #007BFF; /* 버튼 배경색 */
+    color: white; /* 버튼 글자색 */
+    border: none; /* 테두리 제거 */
+    border-radius: 4px; /* 모서리 둥글게 */
+    cursor: pointer; /* 커서 모양 변경 */
+    width: 100px;
+}
+
+.verify-auth-code
+{
+    padding: 8px 12px; /* 버튼 안쪽 여백 */
+    font-size: 14px; /* 버튼 글자 크기 */
+    background-color: #007BFF; /* 버튼 배경색 */
+    color: white; /* 버튼 글자색 */
+    border: none; /* 테두리 제거 */
+    border-radius: 4px; /* 모서리 둥글게 */
+    cursor: pointer; /* 커서 모양 변경 */
+    width: 200px;
+
+}
+
+.auth-code
+{
+    width: 600px;
+    flex: 1; /* 입력 필드가 남는 공간을 차지하도록 설정 */
+    padding: 8px; /* 입력 필드 안쪽 여백 */
+    font-size: 14px; /* 글자 크기 */
+    border: 1px solid #ccc; /* 테두리 설정 */
+    border-radius: 4px; /* 모서리 둥글게 */
+}
+
+.id-button:hover {
+    background-color: #0056b3; /* 호버 시 버튼 배경색 변경 */
+}

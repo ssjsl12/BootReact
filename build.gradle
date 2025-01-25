@@ -50,6 +50,12 @@ dependencies {
     implementation 'commons-io:commons-io:2.13.0'
 
     implementation 'org.springframework.boot:spring-boot-starter-mail'
+
+    //유효성 체크
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation:3.4.0'
+
+
 }
 
 tasks.named('test') {

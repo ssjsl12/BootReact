@@ -1,15 +1,3 @@
-input[type="email"],
-input[type="password"],
-input[type="id"],
-input[type="nickname"]
-{
-    width: 100%; /* 원하는 너비 */
-    height: 40px; /* 원하는 높이 */
-    padding: 8px;
-    font-size: 16px;
-    box-sizing: border-box; /* 패딩 포함 */
-    padding: 10px;
-}
 
 .login-form form{
     max-width: 600px;
@@ -27,6 +15,11 @@ input[type="nickname"]
     align-items: center; /* 세로 정렬 */
     gap: 10px; /* 버튼 사이의 간격 */
     width: 100%; /* 부모 컨테이너의 너비에 맞춤 */
+}
+
+.login-form div
+{
+    margin-bottom: 20px;
 }
 
 .login-form

@@ -40,23 +40,6 @@ textarea {
     box-sizing: border-box;
 }
 
-input[type="id"],
-input[type="password"],
-input[type="email"],
-input[type="nickname"],
-input[type="phone"],
-input[type="title"],
-input[type="author"]
-{
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    font-size: 14px;
-    box-sizing: border-box;
-}
-
 /* 텍스트영역 크기 조정 */
 textarea {
     min-height: 280px;
@@ -158,4 +141,9 @@ h1 {
 {
     position: relative;
     top : 10px;
+}
+
+.form div
+{
+    margin-bottom: 10px;
 }

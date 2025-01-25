@@ -37,7 +37,23 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUserEmail(email);
     }
 
-    //로그인 알아서 처리
+    //아이디 체크
+    public boolean isEmailDuplicate(String email) {
+        return userRepository.existsByUserEmail(email);
+    }
+
+
+    //아이디 체크
+    public boolean isIdDuplicate(String id) {
+        return userRepository.existsById(id);
+    }
+
+    //닉네임 체크
+    public boolean isNicknameDuplicate(String nickname) {
+        return userRepository.existsByNickname(nickname);
+    }
+
+    //로그인 처리
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
 
