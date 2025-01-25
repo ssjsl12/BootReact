@@ -98,6 +98,12 @@ public class BoardPostService {
 
     }
 
+    public void deletePost(Long id)
+    {
+        boardPostRepository.deleteById(id);
+    }
+
+
     //게시글 페이징 처리
     public Page<PostDTO> getPagingPost(PageRequest pageRequest , List<PostDTO> items) {
 

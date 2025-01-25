@@ -9,6 +9,7 @@ const JoinForm = () => {
     const [form ,setForm] = useState([]);
     const [isDisabled, setIsDisabled] = useState(false); // 비활성화 상태
     const [authSuc, setauthSuc] = useState(false); // 비활성화 상태
+    const navigate = useNavigate();
     var authCode;
 
 
@@ -38,7 +39,8 @@ const JoinForm = () => {
             .then(response => {
 
                 alert("회원가입에 성공하였습니다.");
-
+                navigate("/gallery");
+                window.location.reload();
             })
             .catch(error => {
                 // 서버에서 반환한 에러 메시지를 사용자에게 표시

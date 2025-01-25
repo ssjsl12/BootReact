@@ -16,5 +16,6 @@ public interface BoardPostRepository extends JpaRepository<BoardPost, Long> {
 
     BoardPost findById(long id);
 
+    BoardPost deleteById(long id);
 
 }

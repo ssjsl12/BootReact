@@ -9,6 +9,7 @@ import com.example.bootreact.Service.BoardPostService;
 import com.example.bootreact.Service.GalleryService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -95,6 +96,18 @@ public class PostController {
         boardPostService.modifyPost(gallery, postDTO , principal);
 
         return ResponseEntity.ok().build();
+    }
+
+    //게시글 삭제
+    @PostMapping("{category}/{url}/delete/{no}")
+    public @ResponseBody ResponseEntity delete( @PathVariable("category") String category,
+                                                @PathVariable("url")String url,
+                                                @PathVariable("no")Long no)
+    {
+
+        boardPostService.deletePost(no);
+
+        return new ResponseEntity<String>("삭제 완료", HttpStatus.OK);
     }
 
 }

@@ -86,7 +86,7 @@ public class SecurityConfig {
 
     @Bean
     public SecurityContextRepository securityContextRepository() {
-        // SecurityContext를 HttpSession에 저장하여 동기화
+        // SecurityContext를 HttpSession에 저장하여 동기화ron
         return new HttpSessionSecurityContextRepository();
     }
 
@@ -94,7 +94,7 @@ public class SecurityConfig {
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3000");// 리액트 서버
+        config.addAllowedOrigin("http://localhost:3001");// 리액트 서버
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
 

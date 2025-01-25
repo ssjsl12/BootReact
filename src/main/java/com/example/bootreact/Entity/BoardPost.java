@@ -49,7 +49,7 @@ public class BoardPost {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "post",fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "post",fetch = FetchType.LAZY , cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>(); // 댓글 리스트
 
     @Column(nullable = false)
