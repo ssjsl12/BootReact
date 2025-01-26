@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.io.Console;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +36,8 @@ public class GalleryController {
 
     @Autowired
     private BoardPostService boardPostService;
+
+    public String currentType = "none";
 
 
     @GetMapping("/category/{type}")
@@ -57,8 +60,10 @@ public class GalleryController {
     }
 
     //게시글 리스트
-    @GetMapping("/{category}/{url}/{page}")
-    public Page<PostDTO> getGalleryById(@PathVariable("category") String category, @PathVariable("url") String url,@PathVariable("page") int page) {
+    @GetMapping("/{category}/{url}/{page}/{type}")
+    public Page<PostDTO> getGalleryById(@PathVariable("category") String category, @PathVariable("url") String url,@PathVariable("page") int page
+        ,@PathVariable("type") String type)
+    {
 
         // galleryService를 통해 Gallery 객체를 가져옵니다.
         Gallery gallery = galleryService.getGalleryByUrl(url);
@@ -67,7 +72,30 @@ public class GalleryController {
         int galleryNo = gallery.getNo();
 
         // 해당 galleryNo에 해당하는 게시글 목록을 찾습니다.
-        List<BoardPost> list = boardPostService.findGalleryNo(galleryNo);
+        List<BoardPost> list = null;
+        switch (type)
+        {
+            case "none":
+                list  = boardPostService.findGalleryNo(galleryNo);
+                break;
+
+            case "views":
+                list  = boardPostService.findByPostsSortedByViews(galleryNo);
+                break;
+
+            case "best":
+
+
+                break;
+
+            case "updates":
+                list  = boardPostService.findByPostsSortedByCreate(galleryNo);
+                break;
+        }
+
+        currentType = type;
+
+        log.info(type);
 
         // PostDTO 리스트로 변환하여 반환할 리스트
         List<PostDTO> postDTOList = new ArrayList<>();
@@ -91,7 +119,7 @@ public class GalleryController {
             postDTOList.add(postDTO);
         }
 
-        PageRequest pageRequest = PageRequest.of(page, 8);
+        PageRequest pageRequest = PageRequest.of(page, 5);
         Page<PostDTO> pagePostDto = boardPostService.getPagingPost(pageRequest, postDTOList);
 
         // 변환된 PostDTO 리스트 반환

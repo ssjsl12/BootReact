@@ -109,5 +109,4 @@ public class PostController {
 
         return new ResponseEntity<String>("삭제 완료", HttpStatus.OK);
     }
-
 }

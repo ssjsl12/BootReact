@@ -16,6 +16,11 @@ public interface BoardPostRepository extends JpaRepository<BoardPost, Long> {
 
     BoardPost findById(long id);
 
-    BoardPost deleteById(long id);
+
+    @Query("SELECT bp FROM BoardPost bp WHERE bp.gallery.no = :galleryNo ORDER BY bp.createdAt DESC")
+    List<BoardPost> findByGalleryNoOrderByCreatedAtDesc(@Param("galleryNo") int galleryNo);
+
+    @Query("SELECT bp FROM BoardPost bp WHERE bp.gallery.no = :galleryNo ORDER BY bp.views ASC")
+    List<BoardPost> findByGalleryNoOrderByViewsDesc(@Param("galleryNo") int galleryNo);
 
 }

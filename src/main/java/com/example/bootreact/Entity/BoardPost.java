@@ -55,17 +55,6 @@ public class BoardPost {
     @Column(nullable = false)
     private boolean isAuthenticated;
 
-    @PrePersist
-    public void prePersist() {
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
-
-    @PreUpdate
-    public void preUpdate() {
-        this.updatedAt = LocalDateTime.now();
-    }
-
     // 조회수 증가 메서드
     public void incrementViews() {
         this.views++;

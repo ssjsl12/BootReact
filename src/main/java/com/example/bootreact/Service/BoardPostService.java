@@ -46,10 +46,7 @@ public class BoardPostService {
         return boardPost;
     }
 
-    public List<BoardPost> findGalleryNo(int galleryNo)
-    {
-        return boardPostRepository.findByGalleryNoLists(galleryNo);
-    }
+
 
     //게시글 추가
     public void writePost(Gallery gallery, PostDTO postDTO , Principal principal)
@@ -70,6 +67,7 @@ public class BoardPostService {
             boardPost.setPassword(passwordEncoder.encode(postDTO.getPassword()));
         }
 
+        boardPost.setUpdatedAt(LocalDateTime.now());
         boardPost.setId(postDTO.getId());
         boardPost.setTitle(postDTO.getTitle());
         boardPost.setContent(postDTO.getContent());
@@ -93,6 +91,8 @@ public class BoardPostService {
         boardPost.setTitle(postDTO.getTitle());
         boardPost.setGallery(gallery);
         boardPost.setPassword(postDTO.getPassword());
+        boardPost.setUpdatedAt(LocalDateTime.now());
+        boardPost.setCreatedAt(LocalDateTime.now());
 
         boardPostRepository.save(boardPost);
 
@@ -115,6 +115,8 @@ public class BoardPostService {
         return new PageImpl<>(pageContent, pageRequest, items.size());
     }
 
+
+    //포스트 입력
     public PostDTO setPost(BoardPost post)
     {
         PostDTO postDTO = new PostDTO();
@@ -135,7 +137,20 @@ public class BoardPostService {
         return postDTO;
     }
 
+    public List<BoardPost> findGalleryNo(int galleryNo)
+    {
+        return boardPostRepository.findByGalleryNoLists(galleryNo);
+    }
 
+    // 조회수 기준 내림차순으로 게시글 가져오기
+    public List<BoardPost> findByPostsSortedByCreate(int galleryNo) {
+        return boardPostRepository.findByGalleryNoOrderByCreatedAtDesc(galleryNo);
+    }
+
+    // 조회수 기준 오름차순으로 게시글 가져오기 (선택)
+    public List<BoardPost> findByPostsSortedByViews(int galleryNo) {
+        return boardPostRepository.findByGalleryNoOrderByViewsDesc(galleryNo);
+    }
 
 
 }

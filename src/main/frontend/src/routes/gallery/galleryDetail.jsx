@@ -12,12 +12,15 @@ const GalleryDetail = () => {
     const [loading, setLoading] = useState(true); // 로딩 상태
     const [error, setError] = useState(null); // 에러 상태
     const [currentPage, setCurrentPage] = useState(0); // 현재 페이지 번호
+    const [sortType , setSortType] = useState('none');
+
 
     useEffect(() => {
         const fetchData = async () => {
+
             try {
                 setLoading(true);
-                const response = await axios.get(`/${category}/${galleryId}/${currentPage}`)
+                const response = await axios.get(`/${category}/${galleryId}/${currentPage}/${sortType}`)
                 setData(response.data); // API 데이터 설정
             } catch (err) {
                 console.error("Error fetching data:", err);
@@ -27,7 +30,7 @@ const GalleryDetail = () => {
             }
         };
         fetchData();
-    },[category,currentPage]);
+    },[sortType,currentPage]);
 
     if (loading) {
         return <p>Loading...</p>; // 로딩 중일 때 메시지 표시
@@ -37,20 +40,22 @@ const GalleryDetail = () => {
         return <p>Error: {error.message}</p>; // 에러 발생 시 메시지 표시
     }
 
-    if (!data || !data.content || data.content.length === 0) {
-       /* return <p>No posts available.</p>; // 데이터가 없을 때 처리*/
-    }
+    const sortingViews = (type) => {
+        setSortType(type); // 상태 업데이트
+        console.log("Sorting type set to:", type); // 여기는 전달받은 값 그대로 출력
+    };
 
     const handlePageChange = (newPage) => {
-        navigate(`/${category}/${galleryId}/${newPage}`);
+
         setCurrentPage(newPage); // 페이지 변경
     };
 
-
+    //글쓰기 페이지
     const handleWriteClick = () => {
         navigate(`/${category}/${galleryId}/write`); // 글쓰기 페이지로 이동
     };
 
+    //게시글 상세페이지
     const handlePostClick = (no) => {
         navigate(`/${category}/${galleryId}/detail/${no}`); // 게시글 상세 페이지로 이동
     };
@@ -66,13 +71,29 @@ const GalleryDetail = () => {
             <h1>{galleryId}</h1>
 
             <div className="post-list-option">
-                <div className="post-right">
-                    <button className="btn_write" onClick={handleWriteClick}>
+                <div className="post-sorting">
+
+                    <button onClick={ () => sortingViews("views")} className="btn-views">
+                        조회수
+                    </button>
+
+                    <button onClick={ () => sortingViews("updates")} className="btn-update">
+                        최신순
+                    </button>
+
+                    <button onClick={ () => sortingViews("best")} className="btn-best">
+                        추천순
+                    </button>
+
+                </div>
+
+                <div className="btn-option">
+                    <button className="btn-write" onClick={handleWriteClick}>
                         글쓰기
                     </button>
                 </div>
-            </div>
 
+            </div>
 
 
             <div className="post-list">
@@ -81,7 +102,7 @@ const GalleryDetail = () => {
                     <span className="post-title">제목</span>
                     <span className="post-author">작성자</span>
                     <span className="post-date">업데이트 시간</span>
-                    <span className="post-views">조회수</span>
+                    <span className="post-views" onClick={sortingViews}>조회수</span>
                 </div>
                 {data.content && data.content.length > 0 ? (
                     data.content.map(p => (
