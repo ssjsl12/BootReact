@@ -10,6 +10,17 @@
     min-height: 350px; /* 최소 높이를 유지 */
 }
 
+
+.recommend-group {
+    width: 60%;
+    margin: 0 auto;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* 요소 간 간격 */
+}
+
 /* 코멘트 */
 
 .comment-group

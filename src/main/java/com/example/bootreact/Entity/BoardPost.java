@@ -55,6 +55,12 @@ public class BoardPost {
     @Column(nullable = false)
     private boolean isAuthenticated;
 
+    @Column(name = "recommend")
+    private int recommend;
+
+    @Column(name = "notrecommend")
+    private int notrecommend;
+
     // 조회수 증가 메서드
     public void incrementViews() {
         this.views++;

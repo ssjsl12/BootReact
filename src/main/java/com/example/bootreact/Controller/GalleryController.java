@@ -78,24 +78,18 @@ public class GalleryController {
             case "none":
                 list  = boardPostService.findGalleryNo(galleryNo);
                 break;
-
             case "views":
                 list  = boardPostService.findByPostsSortedByViews(galleryNo);
                 break;
-
             case "best":
-
-
+                list = boardPostService.findByPostsSortedByCommended(galleryNo);
                 break;
-
             case "updates":
                 list  = boardPostService.findByPostsSortedByCreate(galleryNo);
                 break;
         }
 
         currentType = type;
-
-        log.info(type);
 
         // PostDTO 리스트로 변환하여 반환할 리스트
         List<PostDTO> postDTOList = new ArrayList<>();
@@ -107,7 +101,7 @@ public class GalleryController {
             // BoardPost에서 PostDTO로 필요한 정보를 설정
             postDTO.setting(post.getId(), post.getTitle(), post.getContent(),
                     post.getAuthor(), post.getUpdatedAt() , post.getViews()
-            ,null , post.isAuthenticated());
+            ,null , post.isAuthenticated() , post.getRecommend(), post.getNotrecommend());
 
             // 댓글 목록을 DTO로 변환하여 추가
             postDTO.setComments(post.getComments().stream()

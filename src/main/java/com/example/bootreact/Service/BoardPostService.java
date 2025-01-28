@@ -46,8 +46,6 @@ public class BoardPostService {
         return boardPost;
     }
 
-
-
     //게시글 추가
     public void writePost(Gallery gallery, PostDTO postDTO , Principal principal)
     {
@@ -128,13 +126,27 @@ public class BoardPostService {
                 post.getUpdatedAt(),
                 post.getViews(),
                 post.getPassword(),
-                post.isAuthenticated());
+                post.isAuthenticated(),
+                post.getRecommend(),
+                post.getNotrecommend());
 
         postDTO.setComments(post.getComments().stream()
                 .map(comment -> new CommentDTO(comment.getId(), comment.getContent(), comment.getAuthor(), comment.getCreatedAt() , comment.getPassword()))
                 .toList());
 
         return postDTO;
+    }
+
+    public void commendPost(Long no , Long type)
+    {
+        if(type == 1)
+        {
+                boardPostRepository.incrementRecommendCount(no);
+        }
+        else
+        {
+            boardPostRepository.decrementRecommendCount(no);
+        }
     }
 
     public List<BoardPost> findGalleryNo(int galleryNo)
@@ -150,6 +162,11 @@ public class BoardPostService {
     // 조회수 기준 오름차순으로 게시글 가져오기 (선택)
     public List<BoardPost> findByPostsSortedByViews(int galleryNo) {
         return boardPostRepository.findByGalleryNoOrderByViewsDesc(galleryNo);
+    }
+
+    // 조회수 기준 오름차순으로 게시글 가져오기 (선택)
+    public List<BoardPost> findByPostsSortedByCommended(int galleryNo) {
+        return boardPostRepository.findByGalleryNoOrderByRecommendDesc(galleryNo);
     }
 
 

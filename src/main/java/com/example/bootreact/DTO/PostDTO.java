@@ -19,11 +19,13 @@ public class PostDTO {
     LocalDateTime updateTime;
     String password;
     int views;
+    int recommend;
+    int notrecommend;
     boolean isAuthenticated;
 
     private List<CommentDTO> comments = new ArrayList<>(); // 댓글 리스트 포함
     public void setting(int id, String title, String content, String author ,
-                        LocalDateTime updateTime , int views ,String password, boolean isAuthenticated ) {
+                        LocalDateTime updateTime , int views ,String password, boolean isAuthenticated , int recommend , int notRecommended) {
         this.id = id;
         this.title = title;
         this.content = content;
@@ -32,6 +34,8 @@ public class PostDTO {
         this.views = views;
         this.password = password;
         this.isAuthenticated = isAuthenticated;
+        this.recommend = recommend;
+        this.notrecommend = notRecommended;
     }
 
 }

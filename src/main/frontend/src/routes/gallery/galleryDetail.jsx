@@ -102,7 +102,8 @@ const GalleryDetail = () => {
                     <span className="post-title">제목</span>
                     <span className="post-author">작성자</span>
                     <span className="post-date">업데이트 시간</span>
-                    <span className="post-views" onClick={sortingViews}>조회수</span>
+                    <span className="post-views">조회수</span>
+                    <span className="post-best">추천수</span>
                 </div>
                 {data.content && data.content.length > 0 ? (
                     data.content.map(p => (
@@ -116,6 +117,7 @@ const GalleryDetail = () => {
                             <span className="post-author">{p.author}</span>
                             <span className="post-date">{formatDate(p.updateTime)}</span>
                             <span className="post-views">{p.views}</span>
+                            <span className="post-views">{p.recommend}</span>
                         </div>
                     ))
                 ) : (

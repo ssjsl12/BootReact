@@ -109,4 +109,17 @@ public class PostController {
 
         return new ResponseEntity<String>("삭제 완료", HttpStatus.OK);
     }
+
+    @PostMapping("{category}/{url}/{no}/recommend")
+    public @ResponseBody ResponseEntity recommend(@PathVariable("no") Long no,
+                                                  @RequestParam("type") Long type)
+    {
+        //한게시글에 추천은 한명만
+
+        
+        boardPostService.commendPost(no, type);
+
+        return ResponseEntity.ok().build();
+    }
+
 }

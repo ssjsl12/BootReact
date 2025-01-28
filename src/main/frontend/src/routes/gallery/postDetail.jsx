@@ -144,8 +144,18 @@ const PostDetail = () =>
             });
     }
 
+    function recommend(type)
+    {
+        axios.post(`/${category}/${galleryId}/${post.id}/recommend?type=${type}`)
+            .then(res =>
+            {
+                window.location.reload();
+            })
+            .catch(error =>{
 
-
+                console.log("error");
+            });
+    }
 
     return (
         <div>
@@ -164,9 +174,15 @@ const PostDetail = () =>
                     dangerouslySetInnerHTML={{__html: post.content}} // HTML로 렌더링
                 />
             </div>
+
+            <div className="recommend-group">
+
+                <div onClick={() => recommend(1)}>추천 {post.recommend}</div>
+                <div onClick={() => recommend(-1)} >비추천{post.notrecommend}</div>
+            </div>
+
             <div className="comment-group">
             <h2>댓글</h2>
-
                 {post.comments && post.comments.length > 0 ? (
                     post.comments.map(comment => (
                         <div className="comment-detail">
