@@ -47,8 +47,8 @@ function App() {
         <div className="App">
             {/* 헤더 */}
             <header style={{backgroundColor: "#333"}}>
-                <h1 style={{color: "white"}}>헤더 제목</h1>
-                <h3>서브 타이틀</h3>
+                <h1 style={{color: "white", padding: "10px" }}>ForumGall</h1>
+
 
                 {/* 내비게이션 */}
                 <Navbar className="custom-navbar" expand="lg" data-bs-theme="dark">

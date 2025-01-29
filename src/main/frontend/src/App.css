@@ -39,7 +39,7 @@
 
 section
 {
-  min-height: 705px;
+  min-height: 740px;
   margin: 30px;
 }
 
@@ -56,6 +56,14 @@ footer {
   bottom: 0;
   width: 100%;  /* 화면 전체 너비 */
 }
+
+/* 폼 전체 스타일 */
+h1 {
+  text-align: center;
+  margin-bottom: 0;
+  color: #333;
+}
+
 
 body {
   font-family: Arial, sans-serif;

@@ -116,7 +116,7 @@ public class PostController {
     {
         //한게시글에 추천은 한명만
 
-        
+
         boardPostService.commendPost(no, type);
 
         return ResponseEntity.ok().build();

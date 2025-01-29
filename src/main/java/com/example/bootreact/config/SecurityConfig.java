@@ -48,7 +48,7 @@ public class SecurityConfig {
                 )
                 .formLogin(config -> config
                         .loginPage("/login")
-                        .defaultSuccessUrl("/gallery/leagueoflegends/0")
+                        .defaultSuccessUrl("http://localhost:3000")
                         .usernameParameter("id")
                         .failureUrl("/login/error")
                         .failureHandler((request, response, exception) ->
@@ -60,7 +60,7 @@ public class SecurityConfig {
                 )
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutSuccessUrl("/gallery/leagueoflegends/0")
+                        .logoutSuccessUrl("http://localhost:3000")
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                 )
@@ -94,7 +94,7 @@ public class SecurityConfig {
     public CorsFilter corsFilter() {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3001");// 리액트 서버
+        config.addAllowedOrigin("http://localhost:3000");// 리액트 서버
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
 
