@@ -1,19 +1,27 @@
 .message-group {
-    width: 50%;
+    width: 60%;
     padding: 20px;
     margin: 0 auto;
 }
 
-.message-option
+.btn-detail-group button {
+    width: 20%;
+
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.message-item-group span
 {
-    background-color: rgb(27, 30, 31);
-    border-color: rgb(58, 62, 65);
+    width: 20%;
 }
 
 .message-item-group
 {
-    display: flex
-;
+    display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 10px 15px;
