@@ -103,7 +103,6 @@
 .post-detail h1
 {
     font-size: 20px;
-    height: 15px;
     text-align: left;
 }
 
@@ -117,12 +116,11 @@
     cursor: pointer;
 }
 
-.btn-detail-group
-{
+.btn-detail-group {
     position: relative;
-    left: 80%;
     display: flex;
-    gap:10px;
+    gap: 10px;
+    justify-content: flex-end;
 }
 
 .btn-group .btn:hover {
@@ -200,4 +198,9 @@
     width: 300px;
     display: grid;
     gap : 10px;
+}
+
+.gallery-posts h1
+{
+    margin-bottom: 20px;
 }

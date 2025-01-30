@@ -1,0 +1,30 @@
+.message-group {
+    width: 50%;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.message-option
+{
+    background-color: rgb(27, 30, 31);
+    border-color: rgb(58, 62, 65);
+}
+
+.message-item-group
+{
+    display: flex
+;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    gap: 20px;
+}
+
+.message-group h1
+{
+    margin-bottom: 20px;
+}

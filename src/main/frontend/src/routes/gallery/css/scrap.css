@@ -1,0 +1,22 @@
+
+
+.scrap-list
+{
+    width: 60%;
+    margin: 0 auto;
+    position: relative;
+    top :30px;
+}
+
+.scrap-header
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    gap: 20px;
+}

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';  // useNavigate 사용
 import axios from "axios";
 import './css/postDetail.css';
 
-const PostDetail = () =>
+const PostDetail = ({ isAuthenticated }) =>
 {
     const [showModal, setShowModal] = useState(false);  // 모달 창 표시 여부 상태
     const {galleryId } = useParams();  // URL에서 galleryId 추출
@@ -30,6 +30,20 @@ const PostDetail = () =>
         const date = new Date(dateString);
         return date.toLocaleString(); // 로컬 시간 형식으로 변환
     };
+
+    function scrap()
+    {
+        axios.post(`/scrap?postno=${no}`)
+            .then(res =>
+            {
+                window.location.reload();
+            })
+            .catch(error =>{
+
+                console.log("error");
+            });
+    }
+
 
     //수정버튼
     function modify()
@@ -144,6 +158,7 @@ const PostDetail = () =>
             });
     }
 
+    //추천
     function recommend(type)
     {
         axios.post(`/${category}/${galleryId}/${post.id}/recommend?type=${type}`)
@@ -161,8 +176,11 @@ const PostDetail = () =>
         <div>
             <div className="post-detail">
                 <div className="btn-detail-group">
-                <button className="btn" onClick={modify}>수정</button>
-                <button className="btn" onClick={postDelete}>삭제</button>
+                    {isAuthenticated && (
+                        <button className="btn" onClick={scrap}>스크랩</button>
+                    )}
+                    <button className="btn" onClick={modify}>수정</button>
+                    <button className="btn" onClick={postDelete}>삭제</button>
                 </div>
                 <h1 className="post_title">{post.title}</h1>
                 <div className="post-meta">
@@ -178,7 +196,7 @@ const PostDetail = () =>
             <div className="recommend-group">
 
                 <div onClick={() => recommend(1)}>추천 {post.recommend}</div>
-                <div onClick={() => recommend(-1)} >비추천{post.notrecommend}</div>
+                <div onClick={() => recommend(-1)}>비추천{post.notrecommend}</div>
             </div>
 
             <div className="comment-group">

@@ -37,6 +37,11 @@ public class UserService implements UserDetailsService {
         return userRepository.findByUserEmail(email);
     }
 
+    public User findById(String id)
+    {
+        return userRepository.findById(id);
+    }
+
     //아이디 체크
     public boolean isEmailDuplicate(String email) {
         return userRepository.existsByUserEmail(email);

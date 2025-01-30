@@ -41,8 +41,9 @@ public class SecurityConfig {
         .csrf(csrf -> csrf.disable()) // 필요에 따라 CSRF 비활성화
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
-                                "/**" , "/api/**"
+                                "/**" , "/api/**" , "/auth-check , '/loginForm " , "/login"
                         ).permitAll() // 허용된 경로
+                        .requestMatchers("/myGall").authenticated() // /myGall 경로는 인증된 사용자만 접근 가능
                         .requestMatchers("/AdminPage", "/Admin/**").hasRole("ADMIN") // 관리자 권한 필요
                         .anyRequest().authenticated() // 기타 요청은 인증 필요
                 )

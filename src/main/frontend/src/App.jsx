@@ -10,8 +10,11 @@ import PostModify from "./routes/gallery/postModify";
 import LoginForm from "./routes/gallery/LoginForm";
 import JoinForm from "./routes/gallery/JoinDetail"
 import Logout from "./routes/gallery/Main"
+import MyGall from "./routes/gallery/MyGall"
+import Message from "./routes/gallery/message";
 import axios from "axios";
 import './App.css';
+
 
 function App() {
     const navigate = useNavigate();  // useNavigate 훅 사용
@@ -47,7 +50,7 @@ function App() {
         <div className="App">
             {/* 헤더 */}
             <header style={{backgroundColor: "#333"}}>
-                <h1 style={{color: "white", padding: "10px" }}>ForumGall</h1>
+                <h1 style={{color: "white", padding: "10px" }} onClick={() => window.location.reload()}>ForumGall</h1>
 
 
                 {/* 내비게이션 */}
@@ -93,8 +96,8 @@ function App() {
                             <button className="user-gall" onClick={() => navigate("/myGall")}>
                                 MY갤로그
                             </button>
-                            <button className="bookmark" onClick={() => navigate("/myBookmark")}>
-                                즐겨찾기
+                            <button className="bookmark" onClick={() => navigate("/message")}>
+                                쪽지함
                             </button>
                             <button className="alert-message">알림</button>
                         </div>
@@ -106,11 +109,13 @@ function App() {
                     <Route path="/logout" element={<Logout/>}/>
                     <Route path="/loginForm" element={<LoginForm/>}/> {/* 로그인 */}
                     <Route path="/join" element={<JoinForm/>}/> {/*회원가입*/}
+                    <Route path="/message" element={<Message/>}/> {/*즐겨찾기*/}
+                    <Route path="/myGall" element={<MyGall isAuthenticated ={isAuthenticated}/>}/> {/*나의 스크랩*/}
                     <Route path="/:category" element={<Gallery/>}/> {/* 카테고리별 갤러리 리스트 */}
                     <Route path="/:category/:galleryId/:page" element={<GalleryDetail/>}/> {/* 갤러리 상세 페이지 게시글 리스트 */}
                     <Route path="/:category/:galleryId/write"
                            element={<PostWrite isAuthenticated={isAuthenticated}/>}/>{/* 게시글 작성 */}
-                    <Route path="/:category/:galleryId/detail/:no" element={<PostDetail/>}/> {/*게시글 상세정보*/}
+                    <Route path="/:category/:galleryId/detail/:no" element={<PostDetail isAuthenticated={isAuthenticated}/>}/> {/*게시글 상세정보*/}
                     <Route path="/:category/:galleryId/modify/:no" element={<PostModify/>}/> {/*게시글 상세정보*/}
                 </Routes>
 

@@ -32,6 +32,8 @@ const GalleryDetail = () => {
         fetchData();
     },[sortType,currentPage]);
 
+    console.log(data);
+
     if (loading) {
         return <p>Loading...</p>; // 로딩 중일 때 메시지 표시
     }
@@ -68,7 +70,7 @@ const GalleryDetail = () => {
 
     return (
         <div className="gallery-posts">
-            <h1>{galleryId}</h1>
+            <h1 onClick={() => window.location.reload()}>{galleryId}</h1>
 
             <div className="post-list-option">
                 <div className="post-sorting">

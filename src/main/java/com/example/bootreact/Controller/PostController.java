@@ -5,8 +5,11 @@ import com.example.bootreact.DTO.PostDTO;
 import com.example.bootreact.Entity.BoardPost;
 import com.example.bootreact.Entity.Comment;
 import com.example.bootreact.Entity.Gallery;
+import com.example.bootreact.Entity.User;
 import com.example.bootreact.Service.BoardPostService;
 import com.example.bootreact.Service.GalleryService;
+import com.example.bootreact.Service.ScrapService;
+import com.example.bootreact.Service.UserService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,6 +29,11 @@ public class PostController {
 
     @Autowired
     private GalleryService galleryService;
+
+    @Autowired
+    private ScrapService scrapService;
+    @Autowired
+    private UserService userService;
 
     @GetMapping("{category}/{url}/write")
     public PostDTO Write(@PathVariable("category") String category, @PathVariable("url")String url)
@@ -121,5 +129,27 @@ public class PostController {
 
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/scrap")
+    public @ResponseBody ResponseEntity scrapPost(@RequestParam("postno") int no , Principal principal)
+    {
+        BoardPost post = boardPostService.findById(no ,false);
+
+        User user = userService.findById(principal.getName());
+
+        scrapService.scrapSave(post , user);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/scrapViewPost")
+    public String postUrl(@RequestParam String galleryId, @RequestParam String category, @RequestParam int no)
+    {
+        Gallery gallery = galleryService.getGalleryById(no);
+
+        String url = "/" + gallery.getCategory().getGalleryType() + "/" + gallery.getUrl() + "/detail/" + no;
+        return url;
+    }
+
 
 }

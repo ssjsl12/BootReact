@@ -41,6 +41,9 @@ public class GalleryService {
         return galleryRepository.findByUrl(url);
     }
 
+    public Gallery getGalleryById(int id) {
+        return galleryRepository.findByNo(id);
+    }
 
 
 }

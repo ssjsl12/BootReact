@@ -10,7 +10,7 @@ const LoginForm = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        axios.get(`/loginForm`)
+        axios.get(`/login`)
             .then(res => SetForm(res.data))
             .catch(err => console.error(err));
 
