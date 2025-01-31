@@ -36,3 +36,57 @@
 {
     margin-bottom: 20px;
 }
+
+/* 모달 전체 배경 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+/* 모달 컨텐츠 스타일 */
+.modal-content {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    width: 400px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    position: relative;
+}
+
+/* 모달 닫기 버튼 */
+.close-btn {
+    background: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 14px;
+    margin-top: 15px;
+    transition: background 0.2s;
+}
+
+.close-btn:hover {
+    background: #d73838;
+}
+
+/* 메시지 내용 */
+.message-text {
+    background: #f4f4f4;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: left;
+    max-height: 150px;
+    overflow-y: auto;
+    margin-top: 10px;
+    white-space: pre-wrap;
+}

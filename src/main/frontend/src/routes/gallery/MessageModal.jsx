@@ -2,12 +2,15 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./css/messageModal.css"; // 모달 스타일
 
-const MessageModal = ({ isOpen, onClose }) => {
+const MessageModal = ({ isOpen, onClose , userinfo}) => {
     const [receiver, setReceiver] = useState("");
     const [messageContent, setContent] = useState("");
     const [messageTitle , setTitle] = useState("");
+
     const handleSend = async () => {
-        if (!receiver || !messageContent || !messageTitle) {
+        const finalReceiver = receiver || userinfo?.receiver;
+
+        if (!finalReceiver  || !messageContent || !messageTitle) {
             alert("받는 사람과 내용을 입력하세요.");
             return;
         }
@@ -15,7 +18,7 @@ const MessageModal = ({ isOpen, onClose }) => {
         try {
             const response = await axios.post("/messages/send", {
                 messageTitle,
-                receiver,
+                receiver: finalReceiver,
                 messageContent,
             });
             alert(response.data); // 서버에서 온 메시지 출력
@@ -35,7 +38,7 @@ const MessageModal = ({ isOpen, onClose }) => {
                 <input
                     type="text"
                     placeholder="받는 사람"
-                    value={receiver}
+                    value={receiver || userinfo?.receiver || ""}  // Set to userinfo if available
                     onChange={(e) => setReceiver(e.target.value)}
                 />
                 <input

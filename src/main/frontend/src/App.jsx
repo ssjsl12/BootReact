@@ -94,7 +94,7 @@ function App() {
                             </button>
 
                             <button className="user-gall" onClick={() => navigate("/myGall")}>
-                                MY갤로그
+                                스크랩
                             </button>
                             <button className="bookmark" onClick={() => navigate("/message")}>
                                 쪽지함

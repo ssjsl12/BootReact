@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';  // useNavigate 사용
 // URL 파라미터를 사용하기 위한 useParams
 import axios from "axios";
 import './css/postDetail.css';
+import UserOption from "./UserOption";
 
 const PostDetail = ({ isAuthenticated }) =>
 {
@@ -16,6 +17,7 @@ const PostDetail = ({ isAuthenticated }) =>
     const { no} = useParams(); // 게시글 넘버
     const [ commentNo ,setCommentNo] = useState( []); // 코멘트 넘버
     const[post, setPost] = useState([]);
+    const [showOptions, setShowOptions] = useState(false);
 
     useEffect(() => {
         // 서버에서 게시글 상세 정보를 가져옵니다.
@@ -184,8 +186,22 @@ const PostDetail = ({ isAuthenticated }) =>
                 </div>
                 <h1 className="post_title">{post.title}</h1>
                 <div className="post-meta">
-                    <p className="author">{post.author}</p> <p> | </p>
-                    <p className="date">{formatDate(post.updateTime)}</p>
+                    <p
+                        className="author"
+                        onClick={() => {
+                            if (post.authenticated) {  // authenticated가 true일 때만 동작
+                                setShowOptions(!showOptions);
+                            }
+                        }
+                    }
+                        style={{cursor: "pointer"}}
+                    >
+                        {post.author} {post.authenticated && "✅"}
+                    </p>
+                     {formatDate(post.updateTime)}
+
+                    {showOptions && <UserOption receiver ={post.author}/>}
+
                 </div>
                 <div
                     className="post-content"

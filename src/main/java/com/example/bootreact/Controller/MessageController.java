@@ -5,10 +5,7 @@ import com.example.bootreact.Service.MessageService;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -42,6 +39,16 @@ public class MessageController {
 
         // 쪽지가 존재하면 반환, 없으면 빈 객체 반환
         return messageDTO;
+    }
+
+    @PostMapping("/meesage/check")
+    public ResponseEntity checkMessage(@RequestBody MessageDTO messageDTO)
+    {
+        messageDTO.setMessageCheck(true);
+        messageService.messageCheck(messageDTO);
+
+
+        return ResponseEntity.ok("쪽지 읽기 성공");
     }
 
 

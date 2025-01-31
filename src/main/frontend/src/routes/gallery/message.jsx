@@ -1,11 +1,14 @@
 import React, {useState , useEffect} from "react";
 import './css/message.css'
 import MessageModal from "./MessageModal";
-
+import ReadMessageModal from "./ReadMessageModal";
+import axios from "axios";
 const Message = () =>
 {
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [isReadModalOpen, setReadModalOpen] = useState(false);
     const [messages, setMessages] = useState([]); // 받은 쪽지 목록 상태
+    const [selectedMessage, setSelectedMessage] = useState(null);
 
     useEffect(() => {
         fetchReceivedMessages();
@@ -25,9 +28,12 @@ const Message = () =>
         }
     }
 
-    console.log(messages);
+
 
     const deleteMessage = async (messageId) => {
+
+        console.log(messageId);
+
         if (!window.confirm("정말 삭제하시겠습니까?")) return;
 
         try {
@@ -44,6 +50,21 @@ const Message = () =>
             console.error("삭제 중 오류 발생:", error);
         }
     };
+
+    const readMessage = (message) => {
+        setSelectedMessage(message);
+        setReadModalOpen(true);
+
+        axios.post(`/meesage/check`, message)
+            .then(res => {
+                window.location.reload();
+                console.log(res);
+            })
+            .catch(error => {
+                alert(error);
+            })
+    };
+
 
 
     return (
@@ -66,13 +87,20 @@ const Message = () =>
                 {/* 받은 쪽지 목록 */}
                 {messages.length > 0 ? (
                     messages.map((msg) => (
-                        <div className="message-item-group" key={msg.id}>
+                        <div className="message-item-group" key={msg.id} onClick={() => readMessage(msg)}>
                             <span className="sender">{msg.senderNo}</span>
                             <span className="send-title">{msg.messageTitle}</span>
                             <span className="send-time">{new Date(msg.sendTime).toLocaleString()}</span>
-                            <span className="receipt-check">{msg.read ? "✅ 읽음" : "❌ 안 읽음"}</span>
-                            <span><button className="delete-message"
-                                          onClick={() => deleteMessage(msg.id)}>🗑️</button></span>
+                            <span className="receipt-check">{msg.messageCheck ? "✅ 읽음" : "❌ 안 읽음"}</span>
+                            <span>   <button
+                                className="delete-message"
+                                onClick={(event) => {
+                                    event.stopPropagation(); // 이벤트 전파 막기
+                                    deleteMessage(msg.id);
+                                }}
+                            >
+                            🗑️
+                            </button></span>
                         </div>
                     ))
                 ) : (
@@ -81,7 +109,9 @@ const Message = () =>
 
             </div>
 
+
             <MessageModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            <ReadMessageModal isOpen={isReadModalOpen} message={selectedMessage} onClose={() => setReadModalOpen(false)} />
         </div>
 
 

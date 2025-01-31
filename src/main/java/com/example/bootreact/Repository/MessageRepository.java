@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface MessageRepository extends JpaRepository<Message, Long> {
 
     List<Message> findByReceiver(String receiver);
-
+    Message findByNo(Long no);
 }

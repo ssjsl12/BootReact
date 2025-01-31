@@ -64,4 +64,15 @@ public class MessageService {
 
         return messageDTOs;
     }
+
+    public void messageCheck(MessageDTO messageDto)
+    {
+        Message message = messageRepository.findByNo(messageDto.getNo());
+
+        message.setMessageCheck(messageDto.isMessageCheck());
+
+        messageRepository.save(message);
+    }
+
+
 }

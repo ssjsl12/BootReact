@@ -32,8 +32,6 @@ const GalleryDetail = () => {
         fetchData();
     },[sortType,currentPage]);
 
-    console.log(data);
-
     if (loading) {
         return <p>Loading...</p>; // 로딩 중일 때 메시지 표시
     }
