@@ -200,7 +200,7 @@ const PostDetail = ({ isAuthenticated }) =>
                     </p>
                      {formatDate(post.updateTime)}
 
-                    {showOptions && <UserOption receiver ={post.author}/>}
+                    {showOptions && <UserOption isAuthenticated={isAuthenticated} receiver ={post.author}/>}
 
                 </div>
                 <div

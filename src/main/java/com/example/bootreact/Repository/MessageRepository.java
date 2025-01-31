@@ -10,4 +10,6 @@ public interface MessageRepository extends JpaRepository<Message, Long> {
 
     List<Message> findByReceiver(String receiver);
     Message findByNo(Long no);
+    int deleteByNo(Long no);
+
 }

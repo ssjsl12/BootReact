@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, {useEffect, useState} from "react";
 import axios from "axios";
 import "./css/messageModal.css"; // 모달 스타일
 
-const MessageModal = ({ isOpen, onClose , userinfo}) => {
+const MessageModal = ({ isOpen, onClose , userinfo , isAuthenticated}) => {
     const [receiver, setReceiver] = useState("");
     const [messageContent, setContent] = useState("");
     const [messageTitle , setTitle] = useState("");
+
+    if(!isAuthenticated)
+        return;
 
     const handleSend = async () => {
         const finalReceiver = receiver || userinfo?.receiver;

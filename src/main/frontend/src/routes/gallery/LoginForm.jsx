@@ -6,15 +6,9 @@ import {Await, useNavigate, useParams} from "react-router-dom";
 
 const LoginForm = () => {
 
-    const [form,SetForm] = useState([]);
+
     const navigate = useNavigate();
 
-    useEffect(() => {
-        axios.get(`/login`)
-            .then(res => SetForm(res.data))
-            .catch(err => console.error(err));
-
-    }, []);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -56,7 +50,7 @@ const LoginForm = () => {
                         <input
                             type="id"
                             id="id"
-                            value={form.id}
+
                         />
                     </div>
                     <div>
@@ -64,7 +58,7 @@ const LoginForm = () => {
                         <input
                             type="password"
                             id="password"
-                            value={form.password}
+
                         />
                     </div>
 

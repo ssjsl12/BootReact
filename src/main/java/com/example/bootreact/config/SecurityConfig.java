@@ -40,16 +40,15 @@ public class SecurityConfig {
         http
         .csrf(csrf -> csrf.disable()) // 필요에 따라 CSRF 비활성화
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/**" , "/api/**" , "/auth-check , '/loginForm " , "/login"
-                        ).permitAll() // 허용된 경로
-                        .requestMatchers("/myGall").authenticated() // /myGall 경로는 인증된 사용자만 접근 가능
-                        .requestMatchers("/AdminPage", "/Admin/**").hasRole("ADMIN") // 관리자 권한 필요
-                        .anyRequest().authenticated() // 기타 요청은 인증 필요
+                        .requestMatchers("/galleries/**", "/auth-check" ,"/login").permitAll()
+                        .requestMatchers("/messages/get" , "/scrap/post").authenticated()
+                        // 관리자 권한을 가진 사용자만 접근 허용
+                        .requestMatchers("/AdminPage", "/Admin/**").hasRole("ADMIN")
+                        .anyRequest().permitAll()
                 )
                 .formLogin(config -> config
                         .loginPage("/login")
-                        .defaultSuccessUrl("http://localhost:3000")
+                        .defaultSuccessUrl("http://localhost:3000", true)
                         .usernameParameter("id")
                         .failureUrl("/login/error")
                         .failureHandler((request, response, exception) ->
@@ -68,6 +67,9 @@ public class SecurityConfig {
                 .securityContext(security -> security
                         .securityContextRepository(securityContextRepository()) // SecurityContext와 세션 동기화
                 );
+
+
+
 
         http.addFilterBefore(corsFilter(), UsernamePasswordAuthenticationFilter.class);
 

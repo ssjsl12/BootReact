@@ -11,27 +11,29 @@ const MyGall = ({isAuthenticated}) =>
 
     useEffect(() => {
         const fetchData = async () => {
-
             try {
 
-                if(!isAuthenticated) {
-                    navigate("/loginForm");
-                    return;
-                }
-                setLoading(true);
-                const response = await axios.get(`/scrap/post`)
-                setData(response.data); // API 데이터 설정
+                const response = await fetch(`/scrap/post`,{
+                        redirect: "follow" // 리디렉션을 자동으로 따라가도록 설정
+                });
+                // 응답을 JSON 형식으로 변환
 
+                if(response.redirected == true)
+                {
+                    window.location.href = "/login"
+                }
+
+                const data = await response.json();
+                setData(data); // API 데이터 설정
             } catch (err) {
                 console.error("Error fetching data:", err);
-
             } finally {
                 setLoading(false);
             }
         };
 
         fetchData();
-    },[]);
+    }, []);
 
 
     const handlePostClick = (no , category , galleryId) => {

@@ -27,15 +27,6 @@ public class LoginController {
         return ResponseEntity.ok(Map.of("authenticated", isAuthenticated));
     }
 
-    @GetMapping("/login")
-    public LoginDTO loginForm()
-    {
-
-        LoginDTO loginDTO = new LoginDTO();
-
-        return loginDTO;
-    }
-
     @GetMapping(value = "/login/error")
     public String loginError(Model model)
     {
@@ -43,6 +34,10 @@ public class LoginController {
         return "/loginForm";
     }
 
-
+    @GetMapping("/login")
+    public String login()
+    {
+        return "/login";
+    }
 
 }

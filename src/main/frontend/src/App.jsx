@@ -86,7 +86,7 @@ function App() {
                                     if (isAuthenticated) {
                                         navigate('/logout'); // 로그아웃으로 이동
                                     } else {
-                                        navigate('/loginForm'); // 로그인 폼으로 이동
+                                        navigate('/login'); // 로그인 폼으로 이동
                                     }
                                 }}
                             >
@@ -107,9 +107,10 @@ function App() {
                 {/* 라우팅 설정 */}
                 <Routes>
                     <Route path="/logout" element={<Logout/>}/>
-                    <Route path="/loginForm" element={<LoginForm/>}/> {/* 로그인 */}
+                    <Route path="/login" element={<LoginForm/>}/> {/* 로그인 */}
+
                     <Route path="/join" element={<JoinForm/>}/> {/*회원가입*/}
-                    <Route path="/message" element={<Message/>}/> {/*즐겨찾기*/}
+                    <Route path="/message" element={<Message  isAuthenticated ={isAuthenticated}/>}/> {/*메세지*/}
                     <Route path="/myGall" element={<MyGall isAuthenticated ={isAuthenticated}/>}/> {/*나의 스크랩*/}
                     <Route path="/:category" element={<Gallery/>}/> {/* 카테고리별 갤러리 리스트 */}
                     <Route path="/:category/:galleryId/:page" element={<GalleryDetail/>}/> {/* 갤러리 상세 페이지 게시글 리스트 */}

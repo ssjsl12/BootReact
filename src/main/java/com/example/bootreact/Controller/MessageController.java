@@ -51,5 +51,18 @@ public class MessageController {
         return ResponseEntity.ok("쪽지 읽기 성공");
     }
 
+    @DeleteMapping("/messages/{id}")
+    public ResponseEntity<String> deleteMessage(@PathVariable Long id, Principal principal) {
+
+        int isDeleted = messageService.deleteMessage(id);
+
+        if (isDeleted == 1) {
+            return ResponseEntity.ok("쪽지가 삭제되었습니다.");
+        } else {
+            return ResponseEntity.badRequest().body("삭제 실패");
+        }
+
+    }
+
 
 }

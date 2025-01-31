@@ -5,6 +5,7 @@ import com.example.bootreact.Entity.Message;
 import com.example.bootreact.Entity.User;
 import com.example.bootreact.Repository.MessageRepository;
 import com.example.bootreact.Repository.UserRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -72,6 +73,12 @@ public class MessageService {
         message.setMessageCheck(messageDto.isMessageCheck());
 
         messageRepository.save(message);
+    }
+
+    @Transactional
+    public int deleteMessage(Long no)
+    {
+        return messageRepository.deleteByNo(no);
     }
 
 

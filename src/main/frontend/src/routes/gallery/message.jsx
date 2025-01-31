@@ -3,36 +3,51 @@ import './css/message.css'
 import MessageModal from "./MessageModal";
 import ReadMessageModal from "./ReadMessageModal";
 import axios from "axios";
-const Message = () =>
+import {useNavigate} from "react-router-dom";
+const Message = ({isAuthenticated}) =>
 {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isReadModalOpen, setReadModalOpen] = useState(false);
     const [messages, setMessages] = useState([]); // 받은 쪽지 목록 상태
     const [selectedMessage, setSelectedMessage] = useState(null);
+    const navigate = useNavigate();
+
 
     useEffect(() => {
+        const fetchReceivedMessages = async () => {
+            try {
+                const response = await fetch("/messages/get");
+
+               if(response.redirected == true)
+               {
+                   window.location.href = "/login"
+               }
+
+                // 응답이 성공적이지 않으면 에러 처리
+                if (!response.ok) {
+                    throw new Error("쪽지 데이터를 불러오지 못했습니다.");
+                }
+
+                // JSON 데이터를 파싱
+                const data = await response.json();
+
+                // 데이터가 배열인지 확인
+                if (Array.isArray(data)) {
+                    setMessages(data);
+                } else {
+                    console.error("Received data is not an array:", data);
+                }
+            } catch (error) {
+                // 에러 발생 시 에러 메시지 출력
+                console.error("Error fetching data:", error);
+            }
+        };
+
         fetchReceivedMessages();
     }, []);
-
     // 받은 쪽지 목록 불러오기
-    const fetchReceivedMessages = async () => {
-        try {
-            const response = await fetch("/messages/get", {
-                credentials: "include", // 쿠키/세션 포함 (인증 필요 시)
-            });
-            if (!response.ok) throw new Error("쪽지 데이터를 불러오지 못했습니다.");
-            const data = await response.json();
-            setMessages(data);
-        } catch (error) {
-            console.error("쪽지 불러오기 실패:", error);
-        }
-    }
-
-
 
     const deleteMessage = async (messageId) => {
-
-        console.log(messageId);
 
         if (!window.confirm("정말 삭제하시겠습니까?")) return;
 
@@ -57,7 +72,6 @@ const Message = () =>
 
         axios.post(`/meesage/check`, message)
             .then(res => {
-                window.location.reload();
                 console.log(res);
             })
             .catch(error => {
@@ -96,7 +110,7 @@ const Message = () =>
                                 className="delete-message"
                                 onClick={(event) => {
                                     event.stopPropagation(); // 이벤트 전파 막기
-                                    deleteMessage(msg.id);
+                                    deleteMessage(msg.no);
                                 }}
                             >
                             🗑️
@@ -110,7 +124,7 @@ const Message = () =>
             </div>
 
 
-            <MessageModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            <MessageModal isOpen={isModalOpen} isAuthenticated = {isAuthenticated} onClose={() => setIsModalOpen(false)} />
             <ReadMessageModal isOpen={isReadModalOpen} message={selectedMessage} onClose={() => setReadModalOpen(false)} />
         </div>
 
