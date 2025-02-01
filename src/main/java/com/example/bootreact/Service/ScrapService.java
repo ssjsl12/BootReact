@@ -5,6 +5,7 @@ import com.example.bootreact.Entity.BoardPost;
 import com.example.bootreact.Entity.Scrap;
 import com.example.bootreact.Entity.User;
 import com.example.bootreact.Repository.ScrapRepository;
+import jakarta.transaction.Transactional;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,14 @@ public class ScrapService {
         List<Scrap> scrap = scrapRepository.getScrapByUser(user);
 
         return scrap;
+    }
+
+    @Transactional
+    public void deletePost(int no)
+    {
+        log.info(no);
+
+        scrapRepository.deleteByPostId(no);
     }
 
 

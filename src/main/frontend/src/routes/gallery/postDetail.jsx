@@ -107,7 +107,7 @@ const PostDetail = ({ isAuthenticated }) =>
                 else if(type === "delete")
                 {
                     //삭제
-                    axios.post(`/${category}/${galleryId}/delete/${no}`)
+                    axios.delete(`/${category}/${galleryId}/delete/${no}`)
                         .then(res => {
                             alert("삭제 완료")
                             window.location.reload();

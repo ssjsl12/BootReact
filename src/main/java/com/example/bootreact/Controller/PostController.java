@@ -107,12 +107,12 @@ public class PostController {
     }
 
     //게시글 삭제
-    @PostMapping("{category}/{url}/delete/{no}")
+    @DeleteMapping("{category}/{url}/delete/{no}")
     public @ResponseBody ResponseEntity delete( @PathVariable("category") String category,
                                                 @PathVariable("url")String url,
                                                 @PathVariable("no")Long no)
     {
-
+        scrapService.deletePost(no.intValue());
         boardPostService.deletePost(no);
 
         return new ResponseEntity<String>("삭제 완료", HttpStatus.OK);

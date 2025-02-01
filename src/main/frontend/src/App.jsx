@@ -9,7 +9,7 @@ import PostDetail from "./routes/gallery/postDetail";
 import PostModify from "./routes/gallery/postModify";
 import LoginForm from "./routes/gallery/LoginForm";
 import JoinForm from "./routes/gallery/JoinDetail"
-import Logout from "./routes/gallery/Main"
+import Logout from "./routes/gallery/Logout"
 import MyGall from "./routes/gallery/MyGall"
 import Message from "./routes/gallery/message";
 import axios from "axios";
