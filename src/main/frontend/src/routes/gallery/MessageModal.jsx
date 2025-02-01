@@ -10,8 +10,19 @@ const MessageModal = ({ isOpen, onClose , userinfo , isAuthenticated}) => {
     if(!isAuthenticated)
         return;
 
+
+    const handleCancel = () => {
+        setReceiver(userinfo || "");  // userinfo 값으로 초기화
+        setTitle("");  // 제목 초기화
+        setContent("");  // 내용 초기화
+        onClose();  // 모달 닫기 또는 다른 동작 수행
+    };
+
+
     const handleSend = async () => {
-        const finalReceiver = receiver || userinfo?.receiver;
+        const finalReceiver = receiver || userinfo;
+
+        console.log(finalReceiver);
 
         if (!finalReceiver  || !messageContent || !messageTitle) {
             alert("받는 사람과 내용을 입력하세요.");
@@ -41,7 +52,7 @@ const MessageModal = ({ isOpen, onClose , userinfo , isAuthenticated}) => {
                 <input
                     type="text"
                     placeholder="받는 사람"
-                    value={receiver || userinfo?.receiver || ""}  // Set to userinfo if available
+                    value={receiver || userinfo}  // Set to userinfo if available
                     onChange={(e) => setReceiver(e.target.value)}
                 />
                 <input
@@ -56,7 +67,7 @@ const MessageModal = ({ isOpen, onClose , userinfo , isAuthenticated}) => {
                 />
                 <div className="modal-buttons">
                     <button onClick={handleSend}>보내기</button>
-                    <button onClick={onClose}>취소</button>
+                    <button onClick={handleCancel}>취소</button>  {/* 취소 버튼 */}
                 </div>
             </div>
         </div>

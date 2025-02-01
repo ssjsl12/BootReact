@@ -120,4 +120,39 @@ public class GalleryController {
         return pagePostDto;
     }
 
+    @GetMapping("/best/post/{page}")
+    public Page<PostDTO> getGalleryById(@PathVariable("page") int page)
+    {
+
+        List<BoardPost> list = null;
+
+        list  = boardPostService.findByPostsSortedByViews();
+
+        List<PostDTO> postDTOList = new ArrayList<>();
+        for (BoardPost post : list) {
+            PostDTO postDTO = new PostDTO();
+
+            // BoardPost에서 PostDTO로 필요한 정보를 설정
+            postDTO.setting(post.getId(), post.getTitle(), post.getContent(),
+                    post.getAuthor(), post.getUpdatedAt() , post.getViews()
+                    ,null , post.isAuthenticated() , post.getRecommend(), post.getNotrecommend());
+
+            // 댓글 목록을 DTO로 변환하여 추가
+            postDTO.setComments(post.getComments().stream()
+                    .map(comment -> new CommentDTO(comment.getId(), comment.getContent(),
+                            comment.getAuthor(), comment.getCreatedAt() , comment.getPassword()))
+                    .collect(Collectors.toList()));
+
+            // 변환된 PostDTO를 리스트에 추가
+            postDTOList.add(postDTO);
+        }
+
+
+        PageRequest pageRequest = PageRequest.of(page, 10);
+        Page<PostDTO> pagePostDto = boardPostService.getPagingPost(pageRequest, postDTOList);
+
+        return pagePostDto;
+
+    }
+
 }

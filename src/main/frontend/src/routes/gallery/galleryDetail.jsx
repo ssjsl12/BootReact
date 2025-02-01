@@ -113,7 +113,7 @@ const GalleryDetail = () => {
                             onClick={() => handlePostClick(p.id)} // 클릭 시 해당 게시글 상세 페이지로 이동
                         >
                             <span className="post-no">{p.id}</span>
-                            <span className="post-title">{p.title}</span>
+                            <span className="post-title">{p.title}({p.comments.length})</span>
                             <span className="post-author">{p.author}</span>
                             <span className="post-date">{formatDate(p.updateTime)}</span>
                             <span className="post-views">{p.views}</span>

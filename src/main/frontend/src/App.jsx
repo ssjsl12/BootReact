@@ -14,6 +14,7 @@ import MyGall from "./routes/gallery/MyGall"
 import Message from "./routes/gallery/message";
 import axios from "axios";
 import './App.css';
+import Main from "./routes/gallery/Main";
 
 
 function App() {
@@ -50,7 +51,7 @@ function App() {
         <div className="App">
             {/* 헤더 */}
             <header style={{backgroundColor: "#333"}}>
-                <h1 style={{color: "white", padding: "10px" }} onClick={() => window.location.reload()}>ForumGall</h1>
+                <h1 style={{color: "white", padding: "10px" }} onClick={() => navigate("/")}>ForumGall</h1>
 
 
                 {/* 내비게이션 */}
@@ -106,9 +107,9 @@ function App() {
 
                 {/* 라우팅 설정 */}
                 <Routes>
+                    <Route path="/" element={<Main/>}></Route>
                     <Route path="/logout" element={<Logout/>}/>
                     <Route path="/login" element={<LoginForm/>}/> {/* 로그인 */}
-
                     <Route path="/join" element={<JoinForm/>}/> {/*회원가입*/}
                     <Route path="/message" element={<Message  isAuthenticated ={isAuthenticated}/>}/> {/*메세지*/}
                     <Route path="/myGall" element={<MyGall isAuthenticated ={isAuthenticated}/>}/> {/*나의 스크랩*/}

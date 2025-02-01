@@ -44,7 +44,7 @@ const Message = ({isAuthenticated}) =>
         };
 
         fetchReceivedMessages();
-    }, []);
+    }, [messages]);
     // 받은 쪽지 목록 불러오기
 
     const deleteMessage = async (messageId) => {

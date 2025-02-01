@@ -6,7 +6,6 @@ const UserOption = ({receiver , isAuthenticated}) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-
     if(!isAuthenticated)
     {
         alert("로그인 후 사용해주세요");
@@ -18,7 +17,7 @@ const UserOption = ({receiver , isAuthenticated}) => {
                     <button onClick={() => alert("정보 보기 클릭!")}>ℹ️ 정보 보기</button>
                 </div>
 
-            <MessageModal isOpen={isModalOpen}  isAuthenticated = {isAuthenticated} userinfo = {receiver} onClose={() => setIsModalOpen(false)} />
+            <MessageModal isOpen={isModalOpen} userinfo = {receiver}  isAuthenticated = {isAuthenticated} onClose={() => setIsModalOpen(false)} />
 
         </div>
     );

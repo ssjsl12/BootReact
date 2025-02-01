@@ -170,4 +170,9 @@ public class BoardPostService {
     }
 
 
+    public List<BoardPost> findByPostsSortedByViews()
+    {
+        return boardPostRepository.findAllByOrderByViewsDesc();
+    }
+
 }

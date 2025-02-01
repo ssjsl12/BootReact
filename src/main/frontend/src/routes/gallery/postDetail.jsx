@@ -18,15 +18,17 @@ const PostDetail = ({ isAuthenticated }) =>
     const [ commentNo ,setCommentNo] = useState( []); // 코멘트 넘버
     const[post, setPost] = useState([]);
     const [showOptions, setShowOptions] = useState(false);
+    const [recommendCount, setRecommendCount] = useState(post.recommend); // 추천 수 상태
 
     useEffect(() => {
         // 서버에서 게시글 상세 정보를 가져옵니다.
         axios.get(`/${category}/${galleryId}/detail/${no}`)
             .then(res => setPost(res.data)) // 데이터 받아서 상태 업데이트
             .catch(err => console.error("Error fetching post:", err));
-    }, [category, galleryId, no]);
+    }, [category, galleryId, no , recommendCount]);
 
     if (!post) return <div>Loading...</div>; // 로딩 중일 때 표시
+
 
     const formatDate = (dateString) => {
         const date = new Date(dateString);
@@ -85,11 +87,12 @@ const PostDetail = ({ isAuthenticated }) =>
 
             if(type === "modify" || type == "delete")
             {
+
                  response = await axios.post('/api/verify-password', {  password, postPassword: post.password });  // 서버로 비밀번호 확인 요청 - 게시글
             }
             else{
 
-                 response = await axios.post('/api/verify-comment-password', {  password, postPassword: post.password });  //서버에서 비밀번호 확인 - 댓글
+                 response = await axios.post('/api/verify-comment-password', {  password, commentNo: commentNo});  //서버에서 비밀번호 확인 - 댓글
             }
 
 
@@ -160,19 +163,26 @@ const PostDetail = ({ isAuthenticated }) =>
             });
     }
 
-    //추천
-    function recommend(type)
-    {
-        axios.post(`/${category}/${galleryId}/${post.id}/recommend?type=${type}`)
-            .then(res =>
-            {
-                window.location.reload();
-            })
-            .catch(error =>{
 
-                console.log("error");
-            });
-    }
+    //추천
+    const recommend = async (type) => {
+        // 함수형 업데이트로 현재 상태를 안전하게 변경
+        setRecommendCount(prevCount => prevCount + 1);
+
+        try {
+            const response = await axios.put(`/${category}/${galleryId}/${post.id}/recommend?type=${type}`);
+
+            // 서버에서 최신 추천 수를 받아서 업데이트 (선택)
+            if (response.data.recommendCount !== undefined) {
+                setRecommendCount(response.data.recommendCount);
+            }
+        } catch (error) {
+            console.error("error", error);
+
+            // 오류 발생 시 이전 값으로 롤백
+            setRecommendCount(prevCount => prevCount - 1);
+        }
+    };
 
     return (
         <div>

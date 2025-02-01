@@ -35,4 +35,7 @@ public interface BoardPostRepository extends JpaRepository<BoardPost, Long> {
     @Query("UPDATE BoardPost bp SET bp.notrecommend = bp.notrecommend + 1 WHERE bp.id = :no")
     void decrementRecommendCount(@Param("no") Long no);
 
+
+    List<BoardPost> findAllByOrderByViewsDesc();
+
 }

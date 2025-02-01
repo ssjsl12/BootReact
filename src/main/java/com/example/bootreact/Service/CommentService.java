@@ -48,6 +48,12 @@ public class CommentService
         commentRepository.deleteById(no);
     }
 
+    public Comment findByNo(int no)
+    {
+        Comment comment = commentRepository.findById(no);
+
+        return comment;
+    }
 
 
 }

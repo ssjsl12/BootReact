@@ -118,7 +118,7 @@ public class PostController {
         return new ResponseEntity<String>("삭제 완료", HttpStatus.OK);
     }
 
-    @PostMapping("{category}/{url}/{no}/recommend")
+    @PutMapping("{category}/{url}/{no}/recommend")
     public @ResponseBody ResponseEntity recommend(@PathVariable("no") Long no,
                                                   @RequestParam("type") Long type)
     {
