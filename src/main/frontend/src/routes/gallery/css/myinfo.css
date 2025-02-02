@@ -4,7 +4,7 @@
 {
     display: grid;
     margin: 0 auto;
-    width: 80%;
+    width: 70%;
     align-items: center;
     padding: 10px 15px;
     gap: 60px;
@@ -61,4 +61,23 @@
     align-items: center;
     padding: 10px 15px;
     gap: 20px;
+}
+
+.password-info
+{
+    display: grid;
+    align-items: center;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    gap: 20px;
+}
+
+.basic-info-1 div {
+    cursor: pointer;  /* 마우스를 손가락 모양(클릭 가능)으로 변경 */
+}
+
+.password-container:hover {
+    background-color: #f0f0f0; /* 마우스를 올리면 색상 변경 */
 }

@@ -42,11 +42,25 @@ public class UserService implements UserDetailsService {
         return userRepository.findById(id);
     }
 
+    public boolean changePassWord(String id , String newPassword)
+    {
+        User user = userRepository.findById(id);
+
+        if(passwordEncoder.matches(newPassword,user.getPassword()))
+        {
+            return false;
+        }
+
+        user.setPassword(passwordEncoder.encode(newPassword));
+        userRepository.save(user);
+
+        return true;
+    }
+
     //아이디 체크
     public boolean isEmailDuplicate(String email) {
         return userRepository.existsByUserEmail(email);
     }
-
 
     //아이디 체크
     public boolean isIdDuplicate(String id) {

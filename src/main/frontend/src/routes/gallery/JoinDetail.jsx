@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import './css/join.css'
 import {Await, useNavigate, useParams} from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
 
 //회원가입 폼
 const JoinForm = () => {
@@ -10,8 +11,10 @@ const JoinForm = () => {
     const [isDisabled, setIsDisabled] = useState(false); // 비활성화 상태
     const [authSuc, setauthSuc] = useState(false); // 비활성화 상태
     const navigate = useNavigate();
-    var authCode;
+    const [password, setPassword] = useState("");
+    const [showPassword1, setShowPassword1] = useState(false);
 
+    var authCode;
 
     useEffect(() => {
         axios.get(`/join`)
@@ -20,6 +23,25 @@ const JoinForm = () => {
 
     }, []);
 
+    const validatePassword = (password) => {
+        const lengthCheck = password.length >= 8;
+        const upperCheck = /[A-Z]/.test(password);
+        const lowerCheck = /[a-z]/.test(password);
+        const numberCheck = /[0-9]/.test(password);
+        const specialCheck = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+        return {
+            lengthCheck,
+            upperCheck,
+            lowerCheck,
+            numberCheck,
+            specialCheck
+        };
+    };
+
+    const validation = validatePassword(password);
+    const allValid = Object.values(validation).every(Boolean);
+
     function handleJoin(){
 
         const id = document.getElementById('id').value;
@@ -27,6 +49,13 @@ const JoinForm = () => {
         const email = document.getElementById('email').value;
         const nickname = document.getElementById('nickname').value;
         const phone = document.getElementById('phone').value;
+        const birth = document.getElementById('birthdate').value;
+        const gender = document.querySelector('input[name="gender"]:checked')?.value || "";
+
+        if(gender == "")
+        {
+            alert("성별을 입력해주세요");
+        }
 
         if(!authSuc) {
 
@@ -34,7 +63,7 @@ const JoinForm = () => {
             return;
         }
         axios.post(`/join`, {
-           id, nickname, email, password,phone
+           id, nickname, email, password,phone , birth ,gender
         })
             .then(response => {
 
@@ -140,15 +169,88 @@ const JoinForm = () => {
                       />
                       <button type="button" className="id-button" onClick={() => checkDuplicate('nickname', form.nickname)}>중복 확인</button>
                   </div>
+                  <div className="password-group">
+
+                      <div className="input-btn-group">
+                          <label htmlFor="password">패스워드</label>
+                          <input
+                              type={showPassword1 ? "text" : "password"}
+                              id="password"
+                              className="id-input"
+                              value={password}
+                              onChange={(e) => setPassword(e.target.value)}
+                          />
+
+                          <button
+                              type="button"
+                              className="eye-btn"
+                              onClick={() => setShowPassword1(!showPassword1)}
+                          >
+                              {showPassword1 ? <EyeOff/> : <Eye/>}
+                          </button>
+                      </div>
+                      <div className="password-hints">
+                          <p style={{color: validation.lengthCheck ? "green" : "red"}}>
+                              ✅ 8자 이상
+                          </p>
+                          <p style={{color: validation.upperCheck ? "green" : "red"}}>
+                              ✅ 대문자 포함 (A-Z)
+                          </p>
+                          <p style={{color: validation.lowerCheck ? "green" : "red"}}>
+                              ✅ 소문자 포함 (a-z)
+                          </p>
+                          <p style={{color: validation.numberCheck ? "green" : "red"}}>
+                              ✅ 숫자 포함 (0-9)
+                          </p>
+                          <p style={{color: validation.specialCheck ? "green" : "red"}}>
+                              ✅ 특수문자 포함 (!@#$%^&*)
+                          </p>
+                      </div>
+
+                      {allValid && <p className="success-message">✅ 강력한 비밀번호입니다!</p>}
+
+
+                  </div>
+
+                  {/* 생년월일 입력 */}
                   <div className="id-group">
-                      <label htmlFor="password">패스워드</label>
+                      <label htmlFor="birthdate">생년월일</label>
                       <input
-                          type="password"
-                          id="password"
+                          type="date"
+                          id="birthdate"
                           className="id-input"
-                          value={form.password}
+                          value={form.birthdate}
+                          onChange={(e) => setForm({ ...form, birthdate: e.target.value })}
                       />
                   </div>
+
+                  {/* 성별 선택 */}
+                  <div className="id-group">
+                      <label>성별</label>
+                      <div className="gender-group">
+                          <label>
+                              <input
+                                  type="radio"
+                                  name="gender"
+                                  value="male"
+                                  checked={form.gender === "male"}
+                                  onChange={(e) => setForm({ ...form, gender: e.target.value })}
+                              />
+                              남성
+                          </label>
+                          <label>
+                              <input
+                                  type="radio"
+                                  name="gender"
+                                  value="female"
+                                  checked={form.gender === "female"}
+                                  onChange={(e) => setForm({ ...form, gender: e.target.value })}
+                              />
+                              여성
+                          </label>
+                      </div>
+                  </div>
+
                   <div className="id-group">
                       <label htmlFor="email">이메일</label>
                       <input

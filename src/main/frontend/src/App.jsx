@@ -16,6 +16,7 @@ import Main from "./routes/gallery/Main";
 import MyInfo from "./routes/gallery/MyInfo";
 import axios from "axios";
 import './App.css';
+import RePassword from "./routes/gallery/RePassword";
 
 
 
@@ -112,6 +113,7 @@ function App() {
                     <Route path="/" element={<Main/>}></Route>
                     <Route path="/logout" element={<Logout/>}/>
                     <Route path="/myinfo" element={<MyInfo isAuthenticated ={isAuthenticated}/>}/>
+                    <Route path="/rePassword" element={<RePassword isAuthenticated={isAuthenticated}/>}/>
                     <Route path="/login" element={<LoginForm/>}/> {/* 로그인 */}
                     <Route path="/join" element={<JoinForm/>}/> {/*회원가입*/}
                     <Route path="/message" element={<Message  isAuthenticated ={isAuthenticated}/>}/> {/*메세지*/}

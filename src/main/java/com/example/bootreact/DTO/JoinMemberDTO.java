@@ -1,5 +1,6 @@
 package com.example.bootreact.DTO;
 
+import com.example.bootreact.Entity.User;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
@@ -8,7 +9,6 @@ import org.hibernate.validator.constraints.Length;
 //회원가입 DTO
 @Setter
 @Getter
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class JoinMemberDTO {
@@ -29,4 +29,23 @@ public class JoinMemberDTO {
 
     @NotEmpty(message = "휴대폰번호는 필수 입력 값입니다.")
     String phone;
+
+    @NotEmpty(message = "생년월일은 필수 입력 값입니다")
+    String birth;
+
+    @NotEmpty(message = "성별은 필수 입력 값입니다")
+    String gender;
+
+    public void SetMember(User user) {
+
+        this.id = user.getId();
+        this.nickname = user.getNickname();
+        this.email = user.getUserEmail();
+        this.password = user.getPassword();
+        this.phone = user.getPhone();
+        this.birth = user.getBirth();
+        this.gender = user.getGender();
+
+    }
+
 }

@@ -29,6 +29,7 @@ public class JoinController {
 
     @PostMapping("/join")
     public ResponseEntity<?> joinMember(@Valid @RequestBody JoinMemberDTO dto, BindingResult bindingResult) {
+
         // 입력값 검증 실패 처리
         if (bindingResult.hasErrors()) {
             // 첫 번째 에러 메시지를 반환

@@ -8,6 +8,17 @@
     background-color: #fff; /* 배경색 */
 }
 
+.join-form h1
+{
+    margin-bottom: 20px;
+}
+
+.gender-group {
+    display: flex;
+    gap: 15px; /* 성별 선택 간격 */
+    margin-top: 5px;
+}
+
 .form-container {
     display: flex; /* 플렉스 레이아웃 */
     flex-direction: column; /* 세로 방향 정렬 */
@@ -57,6 +68,45 @@ button:hover {
 
 .email-auth:hover {
     background-color: #0056b3; /* 호버 시 버튼 색상 */
+}
+
+.password-group
+{
+    align-items: center; /* 요소들 수직 가운데 정렬 */
+    gap: 10px; /* 요소 간격 */
+    margin-bottom: 10px; /* 아래 간격 */
+    position: relative;
+
+}
+
+.input-btn-group
+{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.input-btn-group >input
+{
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.input-btn-group > .eye-btn
+{
+    width: 10%;
+    height: 50%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    font-size: 18px;
+    right : 10px;
+}
+
+.password-group > .eye-btn:hover {
+    color: black;
+    background: none; /* 호버 시 배경 없애기 */
 }
 
 .id-group {

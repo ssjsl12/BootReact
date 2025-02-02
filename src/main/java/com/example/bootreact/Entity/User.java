@@ -34,6 +34,9 @@ public class User {
     @Column(unique = true)
     private String phone;
 
+    private String gender;
+    private String birth;
+
     @Enumerated(EnumType.STRING)
     private Role role; // ROLE_USER, ROLE_ADMIN
 
@@ -46,6 +49,8 @@ public class User {
         member.setPhone(dto.getPhone());
         member.setPassword(passwordEncoder.encode(dto.getPassword()));
         member.setRole(Role.USER);
+        member.setGender(dto.getGender());
+        member.setBirth(dto.getBirth());
         return member;
     }
 }
