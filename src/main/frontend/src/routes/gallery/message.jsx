@@ -16,12 +16,13 @@ const Message = ({isAuthenticated}) =>
     useEffect(() => {
         const fetchReceivedMessages = async () => {
             try {
-                const response = await fetch("/messages/get");
+                if(!isAuthenticated)
+                {
+                    navigate("/login");
+                    return;
+                }
 
-               if(response.redirected == true)
-               {
-                   window.location.href = "/login"
-               }
+                const response = await fetch("/messages/get");
 
                 // 응답이 성공적이지 않으면 에러 처리
                 if (!response.ok) {

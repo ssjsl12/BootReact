@@ -9,19 +9,22 @@ const MyGall = ({isAuthenticated}) =>
     const [loading, setLoading] = useState(true); // 로딩 상태
     const navigate = useNavigate();
 
+
+
     useEffect(() => {
         const fetchData = async () => {
             try {
+
+                if(!isAuthenticated)
+                {
+                    navigate("/login");
+                    return;
+                }
 
                 const response = await fetch(`/scrap/post`,{
                         redirect: "follow" // 리디렉션을 자동으로 따라가도록 설정
                 });
                 // 응답을 JSON 형식으로 변환
-
-                if(response.redirected == true)
-                {
-                    window.location.href = "/login"
-                }
 
                 const data = await response.json();
                 setData(data); // API 데이터 설정

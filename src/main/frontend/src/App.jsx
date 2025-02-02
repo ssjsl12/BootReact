@@ -12,9 +12,11 @@ import JoinForm from "./routes/gallery/JoinDetail"
 import Logout from "./routes/gallery/Logout"
 import MyGall from "./routes/gallery/MyGall"
 import Message from "./routes/gallery/message";
+import Main from "./routes/gallery/Main";
+import MyInfo from "./routes/gallery/MyInfo";
 import axios from "axios";
 import './App.css';
-import Main from "./routes/gallery/Main";
+
 
 
 function App() {
@@ -100,7 +102,7 @@ function App() {
                             <button className="bookmark" onClick={() => navigate("/message")}>
                                 쪽지함
                             </button>
-                            <button className="alert-message">알림</button>
+                            <button className="alert-message" onClick={() => navigate("/myinfo")}>내정보</button>
                         </div>
                     </div>
                 </div>
@@ -109,6 +111,7 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Main/>}></Route>
                     <Route path="/logout" element={<Logout/>}/>
+                    <Route path="/myinfo" element={<MyInfo isAuthenticated ={isAuthenticated}/>}/>
                     <Route path="/login" element={<LoginForm/>}/> {/* 로그인 */}
                     <Route path="/join" element={<JoinForm/>}/> {/*회원가입*/}
                     <Route path="/message" element={<Message  isAuthenticated ={isAuthenticated}/>}/> {/*메세지*/}
