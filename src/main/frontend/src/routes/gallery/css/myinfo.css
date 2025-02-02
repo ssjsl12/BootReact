@@ -1,0 +1,64 @@
+
+
+.my-info
+{
+    display: grid;
+    margin: 0 auto;
+    width: 80%;
+    align-items: center;
+    padding: 10px 15px;
+    gap: 60px;
+}
+
+.basic-info
+{
+    display: grid;
+    align-items: center;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    gap: 20px;
+}
+
+.basic-info-Description
+{
+    display: grid;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    gap: 20px;
+    font-family: "Google Sans", Roboto, Arial, sans-serif;
+}
+
+.basic-info-Description h1, .basic-info-Description div
+{
+    text-align: left;
+
+}
+
+.basic-info-1, .basic-info-2 {
+    display: grid;
+    grid-template-columns: 1fr 4fr; /* 왼쪽(항목명)과 오른쪽(값)의 비율 */
+    align-items: center; /* 수직 중앙 정렬 */
+    padding: 10px 0; /* 위아래 간격 */
+    font-size: 16px;
+}
+.basic-info-2
+{
+    margin-bottom: 10px;
+}
+
+.underline-custom {
+    width: 100%;
+    height: 2px;
+    background-color: #ddd; /* 연한 회색 밑줄 */
+    margin: 5px 0; /* 위아래 간격 */
+}
+
+.info-header
+{
+    display: grid;
+    align-items: center;
+    padding: 10px 15px;
+    gap: 20px;
+}
