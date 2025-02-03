@@ -45,6 +45,7 @@
 <summary> 자세히 보기
 </summary>
 
+![SignUp](https://github.com/user-attachments/assets/d8aa55db-6c65-4a61-b508-7f6f9a529fab)
 
 
 </details>
@@ -56,7 +57,8 @@
 <details> 
 <summary> 자세히 보기
 </summary>
-
+  
+![SignIn](https://github.com/user-attachments/assets/3449390a-7b91-41c3-b50f-7eec265925a5)
 
 </details>
 
