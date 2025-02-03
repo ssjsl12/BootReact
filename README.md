@@ -35,7 +35,7 @@
 
   - [회원가입 페이지](#회원가입-페이지)
   - [로그인 페이지](#로그인-페이지)
-
+  - [게시글 페이지](#게시글-페이지)
 
 <br>  
 
@@ -64,6 +64,26 @@
 
 <br>  
 
+## 게시글 페이지
+
+<details> 
+<summary> 자세히 보기
+</summary>
+
+  게시글 등록 및 댓글 등록
+![CreatePost](https://github.com/user-attachments/assets/0a28207e-5681-40b0-89db-f5e3842883e9)
+
+  게시글 업데이트 
+![PostUpdateAndRead](https://github.com/user-attachments/assets/0ab99eef-69af-4da8-b9d2-45de76a82cbb)
+
+  게시글 삭제
+![DeletePost](https://github.com/user-attachments/assets/9e4ecb75-0042-4483-8d62-26cb56a6490f)
+
+
+
+</details>
+
+<br>  
 
 
 ## 🌄 차후 개발 
