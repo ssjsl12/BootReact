@@ -36,7 +36,8 @@
   - [회원가입 페이지](#회원가입-페이지)
   - [로그인 페이지](#로그인-페이지)
   - [게시글 페이지](#게시글-페이지)
-
+  - [메세지 페이지](#메세지-페이지)
+  - [내정보 페이지](#내정보-페이지)
 <br>  
 
 ## 회원가입 페이지
@@ -76,11 +77,47 @@
   게시글 업데이트 <br>
 ![PostUpdateAndRead](https://github.com/user-attachments/assets/0ab99eef-69af-4da8-b9d2-45de76a82cbb)
 
+ 게시글 스크랩 <br>
+ ![Scrap](https://github.com/user-attachments/assets/6d8b54d1-d4dd-46a7-a016-70851d81b653)
+
+ 게시글 추천 <br>
+ ![recommend](https://github.com/user-attachments/assets/f4eb1a07-0625-4f3d-91cf-6086fab5fa6e)
+
   게시글 삭제 <br>
 ![DeletePost](https://github.com/user-attachments/assets/9e4ecb75-0042-4483-8d62-26cb56a6490f)
 
   게시글 순서 <br>
 ![SortPost](https://github.com/user-attachments/assets/94c296cd-acb3-41b1-b420-2db9e4ded8b8)
+
+</details>
+
+<br>  
+
+## 메세지 페이지
+
+<details> 
+<summary> 자세히 보기
+</summary>
+
+ 메세지 보내기 및 받기 <br> 
+![Message](https://github.com/user-attachments/assets/112e770e-f9e7-42a8-b82c-a3c148678b18)
+
+</details>
+
+<br>  
+
+## 내정보 페이지
+
+<details> 
+<summary> 자세히 보기
+</summary>
+
+내정보 보기 <br>
+![MyInfo](https://github.com/user-attachments/assets/5675cf94-7ea5-40ee-ab7b-6d9a604acca5)
+
+패스워드 변경 <br>
+![ChangePassword](https://github.com/user-attachments/assets/6fff87d8-b59f-48e6-85a2-de5aef25a2c7)
+
 
 </details>
 
