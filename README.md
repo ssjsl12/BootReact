@@ -70,16 +70,17 @@
 <summary> 자세히 보기
 </summary>
 
-  게시글 등록 및 댓글 등록
+  게시글 등록 및 댓글 등록<br>
 ![CreatePost](https://github.com/user-attachments/assets/0a28207e-5681-40b0-89db-f5e3842883e9)
 
-  게시글 업데이트 
+  게시글 업데이트 <br>
 ![PostUpdateAndRead](https://github.com/user-attachments/assets/0ab99eef-69af-4da8-b9d2-45de76a82cbb)
 
-  게시글 삭제
+  게시글 삭제 <br>
 ![DeletePost](https://github.com/user-attachments/assets/9e4ecb75-0042-4483-8d62-26cb56a6490f)
 
-
+  게시글 순서 <br>
+![SortPost](https://github.com/user-attachments/assets/94c296cd-acb3-41b1-b420-2db9e4ded8b8)
 
 </details>
 
