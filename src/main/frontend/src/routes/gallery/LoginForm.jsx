@@ -2,13 +2,14 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import './css/login.css'
 import {Await, useNavigate, useParams} from "react-router-dom";
+import {Eye, EyeOff} from "lucide-react";
 
 
 const LoginForm = () => {
 
 
     const navigate = useNavigate();
-
+    const [showPassword1, setShowPassword1] = useState(false);
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -54,12 +55,20 @@ const LoginForm = () => {
                         />
                     </div>
                     <div>
-                        <label htmlFor="password">패스워드</label>
-                        <input
-                            type="password"
-                            id="password"
+                        <label htmlFor="password">패스워드
 
+                        <input
+                            type={showPassword1 ? "text" : "password"}
+                            id="password"
                         />
+                        <button
+                            type="button"
+                            className="eye-btn"
+                            onClick={() => setShowPassword1(!showPassword1)}
+                        >
+                            {showPassword1 ? <EyeOff /> : <Eye />}
+                        </button>
+                        </label>
                     </div>
 
                     <div>

@@ -57,22 +57,31 @@ const PostModify = () => {
 
     // 이미지 업로드 처리
     const handleImageUpload = async (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            const formData = new FormData();
-            formData.append("image", file);
-
+        const files = Array.from(event.target.files); // 여러 파일을 배열로 변환
+        if (files.length > 0) {
             try {
+                const formData = new FormData();
+
+                // 모든 파일을 formData에 추가
+                files.forEach((file) => {
+                    formData.append("images", file); // 서버에서 "images" 키로 받을 수 있도록 설정
+                });
+
                 // 서버로 이미지 업로드 요청
                 const response = await axios.post("/api/upload", formData, {
                     headers: { "Content-Type": "multipart/form-data" },
                 });
 
-                // 업로드된 이미지 URL 가져오기
-                const imageUrl = response.data;
+                // 서버에서 업로드된 이미지 URL 배열 반환
+                const imageUrls = response.data; // 예: ['/uploads/img1.jpg', '/uploads/img2.jpg']
 
-                // content에 이미지 URL 추가
-                const imgHTML = `<img src="http://localhost:8080/api${imageUrl}" alt="Uploaded Image" style="max-width: 100%;" />`;
+                // 이미지 URL들을 HTML로 변환하여 content에 추가
+                const imgHTML = imageUrls
+                    .map(
+                        (url) =>
+                            `<img src="http://localhost:8080/api${url}" alt="Uploaded Image" style="max-width: 100%;" />`
+                    )
+                    .join(""); // 여러 이미지 URL을 하나의 HTML로 합침
                 const newContent = post.content + imgHTML;
 
                 // 상태 업데이트

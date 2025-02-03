@@ -110,7 +110,7 @@ const PostDetail = ({ isAuthenticated }) =>
                     axios.delete(`/${category}/${galleryId}/delete/${no}`)
                         .then(res => {
                             alert("삭제 완료")
-                            window.location.reload();
+                            navigate(`/${category}/${galleryId}/0`);
                         }) // 데이터 받아서 상태 업데이트
                         .catch(error => {
                             alert("삭제 실패")

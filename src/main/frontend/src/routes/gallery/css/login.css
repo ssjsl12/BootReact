@@ -17,6 +17,26 @@
     width: 100%; /* 부모 컨테이너의 너비에 맞춤 */
 }
 
+.login-form .eye-btn {
+    position: absolute;
+    width: 10%;
+    height: 50%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #666;
+    display: flex;
+    align-items: center;
+    font-size: 18px;
+    right : 520px;
+    top : 95px;
+}
+.login-form .eye-btn:hover {
+    color: black;
+    background: none; /* 호버 시 배경 없애기 */
+}
+
+
 .login-form div
 {
     margin-bottom: 20px;

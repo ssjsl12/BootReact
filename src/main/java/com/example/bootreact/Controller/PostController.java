@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.Console;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -145,9 +146,9 @@ public class PostController {
     @GetMapping("/scrapViewPost")
     public String postUrl(@RequestParam String galleryId, @RequestParam String category, @RequestParam int no)
     {
-        Gallery gallery = galleryService.getGalleryById(no);
+        //Gallery gallery = galleryService.getGalleryById(no);
 
-        String url = "/" + gallery.getCategory().getGalleryType() + "/" + gallery.getUrl() + "/detail/" + no;
+        String url = "/gallery"  + "/leagueoflegend" + "/detail/" + no;
         return url;
     }
 
